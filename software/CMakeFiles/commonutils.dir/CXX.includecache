@@ -6,53 +6,53 @@
 
 #IncludeRegexTransform: 
 
-/home/scott/git/commonutils/commonutils/software/src/Arrays/arraycalc.cc
+/home/scott/git/commonutils/software/src/Arrays/arraycalc.cc
 arrays.h
-/home/scott/git/commonutils/commonutils/software/src/Arrays/arrays.h
+/home/scott/git/commonutils/software/src/Arrays/arrays.h
 sf.h
-/home/scott/git/commonutils/commonutils/software/src/Arrays/sf.h
+/home/scott/git/commonutils/software/src/Arrays/sf.h
 
-/home/scott/git/commonutils/commonutils/software/src/Arrays/charray.cc
+/home/scott/git/commonutils/software/src/Arrays/charray.cc
 arrays.h
-/home/scott/git/commonutils/commonutils/software/src/Arrays/arrays.h
+/home/scott/git/commonutils/software/src/Arrays/arrays.h
 sf.h
-/home/scott/git/commonutils/commonutils/software/src/Arrays/sf.h
+/home/scott/git/commonutils/software/src/Arrays/sf.h
 parametermap.h
-/home/scott/git/commonutils/commonutils/software/src/Arrays/parametermap.h
+/home/scott/git/commonutils/software/src/Arrays/parametermap.h
 randy.h
-/home/scott/git/commonutils/commonutils/software/src/Arrays/randy.h
+/home/scott/git/commonutils/software/src/Arrays/randy.h
 
-/home/scott/git/commonutils/commonutils/software/src/Arrays/mclist.cc
+/home/scott/git/commonutils/software/src/Arrays/mclist.cc
 arrays.h
-/home/scott/git/commonutils/commonutils/software/src/Arrays/arrays.h
+/home/scott/git/commonutils/software/src/Arrays/arrays.h
 
-/home/scott/git/commonutils/commonutils/software/src/Arrays/mcprlist.cc
+/home/scott/git/commonutils/software/src/Arrays/mcprlist.cc
 arrays.h
-/home/scott/git/commonutils/commonutils/software/src/Arrays/arrays.h
+/home/scott/git/commonutils/software/src/Arrays/arrays.h
 
-/home/scott/git/commonutils/commonutils/software/src/Arrays/threed.cc
+/home/scott/git/commonutils/software/src/Arrays/threed.cc
 arrays.h
-/home/scott/git/commonutils/commonutils/software/src/Arrays/arrays.h
+/home/scott/git/commonutils/software/src/Arrays/arrays.h
 parametermap.h
-/home/scott/git/commonutils/commonutils/software/src/Arrays/parametermap.h
+/home/scott/git/commonutils/software/src/Arrays/parametermap.h
 randy.h
-/home/scott/git/commonutils/commonutils/software/src/Arrays/randy.h
+/home/scott/git/commonutils/software/src/Arrays/randy.h
 
-/home/scott/git/commonutils/commonutils/software/src/Arrays/ylmarray.cc
+/home/scott/git/commonutils/software/src/Arrays/ylmarray.cc
 arrays.h
-/home/scott/git/commonutils/commonutils/software/src/Arrays/arrays.h
+/home/scott/git/commonutils/software/src/Arrays/arrays.h
 
-/home/scott/git/commonutils/commonutils/software/src/GSLMatrix/gslmatrix.cc
+/home/scott/git/commonutils/software/src/GSLMatrix/gslmatrix.cc
 gslmatrix.h
-/home/scott/git/commonutils/commonutils/software/src/GSLMatrix/gslmatrix.h
+/home/scott/git/commonutils/software/src/GSLMatrix/gslmatrix.h
 
-/home/scott/git/commonutils/commonutils/software/src/Misc/misc.cc
+/home/scott/git/commonutils/software/src/Misc/misc.cc
 misc.h
-/home/scott/git/commonutils/commonutils/software/src/Misc/misc.h
+/home/scott/git/commonutils/software/src/Misc/misc.h
 constants.h
-/home/scott/git/commonutils/commonutils/software/src/Misc/constants.h
+/home/scott/git/commonutils/software/src/Misc/constants.h
 sf.h
-/home/scott/git/commonutils/commonutils/software/src/Misc/sf.h
+/home/scott/git/commonutils/software/src/Misc/sf.h
 iostream
 -
 cmath
@@ -60,37 +60,37 @@ cmath
 complex
 -
 
-/home/scott/git/commonutils/commonutils/software/src/NumMath/randy.cc
+/home/scott/git/commonutils/software/src/NumMath/randy.cc
 randy.h
-/home/scott/git/commonutils/commonutils/software/src/NumMath/randy.h
+/home/scott/git/commonutils/software/src/NumMath/randy.h
 
-/home/scott/git/commonutils/commonutils/software/src/ParameterMap/parametermap.cc
+/home/scott/git/commonutils/software/src/ParameterMap/parametermap.cc
 parametermap.h
-/home/scott/git/commonutils/commonutils/software/src/ParameterMap/parametermap.h
+/home/scott/git/commonutils/software/src/ParameterMap/parametermap.h
 
-/home/scott/git/commonutils/commonutils/software/src/Qualifiers/qualifier.cc
+/home/scott/git/commonutils/software/src/Qualifiers/qualifier.cc
 qualifier.h
-/home/scott/git/commonutils/commonutils/software/src/Qualifiers/qualifier.h
+/home/scott/git/commonutils/software/src/Qualifiers/qualifier.h
 parametermap.h
-/home/scott/git/commonutils/commonutils/software/src/Qualifiers/parametermap.h
+/home/scott/git/commonutils/software/src/Qualifiers/parametermap.h
 
-/home/scott/git/commonutils/commonutils/software/src/SpecialFunctions/Bessel/bess.cc
+/home/scott/git/commonutils/software/src/SpecialFunctions/Bessel/bess.cc
 sf.h
-/home/scott/git/commonutils/commonutils/software/src/SpecialFunctions/Bessel/sf.h
+/home/scott/git/commonutils/software/src/SpecialFunctions/Bessel/sf.h
 
-/home/scott/git/commonutils/commonutils/software/src/SpecialFunctions/CartesianHarmonics/chcalc.cc
+/home/scott/git/commonutils/software/src/SpecialFunctions/CartesianHarmonics/chcalc.cc
 sf.h
-/home/scott/git/commonutils/commonutils/software/src/SpecialFunctions/CartesianHarmonics/sf.h
+/home/scott/git/commonutils/software/src/SpecialFunctions/CartesianHarmonics/sf.h
 
-/home/scott/git/commonutils/commonutils/software/src/SpecialFunctions/CoulWave/coulwave.cc
+/home/scott/git/commonutils/software/src/SpecialFunctions/CoulWave/coulwave.cc
 sf.h
-/home/scott/git/commonutils/commonutils/software/src/SpecialFunctions/CoulWave/sf.h
+/home/scott/git/commonutils/software/src/SpecialFunctions/CoulWave/sf.h
 
-/home/scott/git/commonutils/commonutils/software/src/SpecialFunctions/Ylm/ylm.cc
+/home/scott/git/commonutils/software/src/SpecialFunctions/Ylm/ylm.cc
 sf.h
-/home/scott/git/commonutils/commonutils/software/src/SpecialFunctions/Ylm/sf.h
+/home/scott/git/commonutils/software/src/SpecialFunctions/Ylm/sf.h
 misc.h
-/home/scott/git/commonutils/commonutils/software/src/SpecialFunctions/Ylm/misc.h
+/home/scott/git/commonutils/software/src/SpecialFunctions/Ylm/misc.h
 
 /usr/include/eigen3/Eigen/Cholesky
 Core
