@@ -1,3 +1,0 @@
-/home/scott/git/commonutils/software/CMakeFiles/rebuild_cache.dir
-/home/scott/git/commonutils/software/CMakeFiles/commonutils.dir
-/home/scott/git/commonutils/software/CMakeFiles/edit_cache.dir

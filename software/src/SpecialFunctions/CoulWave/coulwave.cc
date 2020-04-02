@@ -121,7 +121,6 @@ void CoulWave::GetFGprime_ImagQ(int ellmax,double x,double eta,double *FL,double
 	F=new double[ellmax+1]; G=new double[ellmax+1]; Fprime=new double[ellmax+1]; Gprime=new double[ellmax+1];
 	double ff,root,sign;
 	int n,l,nmax;
-	const complex<double> ci(0.0,1.0);
 	double *A,*B;
 	nmax=24+lrint(fabs(x));
 	A=new double[nmax+1];

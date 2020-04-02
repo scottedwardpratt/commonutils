@@ -68,7 +68,7 @@ double CMCList::GetNorm(){
 }
 
 void CMCList::PrintMoments(double Rmax){
-	double r2,xbar[4]={0.0},x2bar[4][4]={0.0};
+	double r2,xbar[4]={0.0},x2bar[4][4]={{0.0}};
 	int imc,alpha,beta;
 	norm=0;
 	for(imc=0;imc<nmc;imc++){

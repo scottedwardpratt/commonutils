@@ -14,7 +14,6 @@ double SpherHarmonics::legendre(int ell,double ctheta){
 complex<double> SpherHarmonics::Ylm(int ell, int m, double theta, double phi){
   double ctheta;
   complex<double> answer;
-  complex<double> ci(0.0,1.0);
   ctheta=cos(theta);
   answer=gsl_sf_legendre_sphPlm(ell,abs(m),ctheta)*Misc::ceiphi(static_cast<double>(m)*phi);
   if(m<0) answer *= pow(-1.0,(abs(m))); //pow(-1.0,abs(m));
