@@ -851,7 +851,7 @@ void CCHArray::WriteShort(string filename,int LGMAX){
 
 void CCHArray::PrintMoments(){
 	int ir;
-	double r,r2,r3,r4,norm=0.0,m1[3]={0.0},m2[3][3]={0.0};
+	double r,r2,r3,r4,norm=0.0,m1[3]={0.0},m2[3][3]={{0.0}};
 	for(ir=0;ir<NRADIAL;ir++){
 		r=(ir+0.5)*RADSTEP;
 		r2=r*r;

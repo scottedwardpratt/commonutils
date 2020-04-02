@@ -25,8 +25,8 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "include"
-  "/Users/scottpratt/git/hp/alice/software/commonutils/include"
-  "/Users/scottpratt/git/hp/alice/software/b3d2/include"
+  "/hp/alice/software/commonutils/include"
+  "/hp/alice/software/b3d2/include"
   "/usr/local/Cellar/gsl/2.6/include"
   "/usr/local/include/eigen3"
   )
