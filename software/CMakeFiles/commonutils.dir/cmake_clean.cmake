@@ -14,8 +14,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/commonutils.dir/src/SpecialFunctions/CartesianHarmonics/chcalc.cc.o"
   "CMakeFiles/commonutils.dir/src/SpecialFunctions/CoulWave/coulwave.cc.o"
   "CMakeFiles/commonutils.dir/src/SpecialFunctions/Ylm/ylm.cc.o"
-  "lib/libcommonutils.a"
   "lib/libcommonutils.pdb"
+  "lib/libcommonutils.a"
 )
 
 # Per-language clean rules from dependency scanning.
