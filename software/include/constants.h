@@ -1,5 +1,5 @@
-#ifndef __CORAL_CONSTANTS_H__
-#define __CORAL_CONSTANTS_H__
+#ifndef __MSU_CONSTANTS_H__
+#define __MSU_CONSTANTS_H__
 
 #include <cmath>
 #include <complex>
