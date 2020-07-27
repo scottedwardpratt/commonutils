@@ -68,10 +68,17 @@ RM = /usr/local/Cellar/cmake/3.17.3/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
+<<<<<<< HEAD
 CMAKE_SOURCE_DIR = /Users/scottpratt/git/commonutils/software
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /Users/scottpratt/git/commonutils/software
+=======
+CMAKE_SOURCE_DIR = /home/scott/git/commonutils/software
+
+# The top-level build directory on which CMake was run.
+CMAKE_BINARY_DIR = /home/scott/git/commonutils/software
+>>>>>>> b75c3e51a5b3e8c792baec06269cb8d233e1306d
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -100,9 +107,15 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
+<<<<<<< HEAD
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/scottpratt/git/commonutils/software/CMakeFiles /Users/scottpratt/git/commonutils/software/CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/scottpratt/git/commonutils/software/CMakeFiles 0
+=======
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/scott/git/commonutils/software/CMakeFiles /home/scott/git/commonutils/software/CMakeFiles/progress.marks
+	$(MAKE) -f CMakeFiles/Makefile2 all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/scott/git/commonutils/software/CMakeFiles 0
+>>>>>>> b75c3e51a5b3e8c792baec06269cb8d233e1306d
 .PHONY : all
 
 # The main clean target
