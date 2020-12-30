@@ -4,7 +4,7 @@ set(CXX $ENV{CXX})
 project(commonutils CXX C)
 message("CXX is ${CXX}   GITHOME_MSU=${GITHOME_MSU}")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -O3 -fpie -fopenmp")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wextra -Wmissing-declarations -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wundef -Wcast-align -Wformat=2 -Wold-style-cast -Werror=switch -std=c++17 -mfpmath=sse")
 message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS})
 
@@ -15,7 +15,7 @@ find_package(Boost REQUIRED)
 include_directories(SYSTEM ${GSL_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIR})
 message("Includes: ${GSL_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIR}")
 
-file(GLOB commonutils_src ./src/**/*.cc ./src/SpecialFunctions/**/*.cc)
+file(GLOB commonutils_src ./src/**/*.cc ./src/SpecialFunctions/*/*.cc)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "lib")
 add_library(commonutils STATIC ${commonutils_src})
 target_link_libraries(commonutils ${GSL_LIBRARY} ${GSL_CBLAS_LIBRARY} ${Boost_LIBRARIES})
