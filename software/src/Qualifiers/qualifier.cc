@@ -6,45 +6,65 @@
 using namespace std;
 
 void CQualifiers::Read(string qfilename){
+	CQualifier *qptr;
 	char cread[120],dummy[120];
+	int npars=0,iqual=-1;
 	string sread;
-	nqualifiers=-1;
 	FILE *fptr=fopen(qfilename.c_str(),"r");
 	while(!feof(fptr)){
-		fscanf(fptr,"%s",cread); sread=cread;
-		if(sread=="qualifier"){
-			nqualifiers+=1;
-			npars[nqualifiers]=0;
-			fscanf(fptr,"%s",cread); qualifier[nqualifiers]=cread;
+		fscanf(fptr,"%s",cread);
+		sread=cread;
+		if(sread[0]=='#'){
+			fgets(dummy,120,fptr);
 		}
-		else if(sread=="int" || sread=="double" || sread=="bool"){
-			type[nqualifiers][npars[nqualifiers]]=sread;
-			fscanf(fptr,"%s",cread); parname[nqualifiers][npars[nqualifiers]]=cread;
-			fscanf(fptr,"%s",cread); value[nqualifiers][npars[nqualifiers]]=cread;
-			npars[nqualifiers]+=1;
+		else if(sread=="qualifier"){
+			npars=0;
+			iqual+=1;
+			qptr=new CQualifier();
+			qualifier.push_back(qptr);
+			fscanf(fptr,"%s",cread);
+			sread=string(cread);
+			qualifier[iqual]->qualname=sread;
 			fgets(dummy,120,fptr);
 		}
 		else{
-			if(sread[0]=='#'){
-				fgets(dummy,120,fptr);
+			if(sread=="int" || sread=="double" || sread=="bool"){
+				qualifier[iqual]->type.push_back(sread);
+				fscanf(fptr,"%s",cread);
+				sread=string(cread);
+				qualifier[iqual]->parname.push_back(sread);
+				fscanf(fptr,"%s",cread);
+				sread=string(cread);
+				qualifier[iqual]->value.push_back(sread);
 			}
-			else{
-				strcpy(cread,sread.c_str());
-				type[nqualifiers][npars[nqualifiers]]="unknown";
-				parname[nqualifiers][npars[nqualifiers]]=cread;
-				fscanf(fptr,"%s",cread); value[nqualifiers][npars[nqualifiers]]=cread;
-				npars[nqualifiers]+=1;
-				fgets(dummy,120,fptr);
+			else{	
+				qualifier[iqual]->type.push_back("unknown");
+				qualifier[iqual]->parname.push_back(sread);
+				fscanf(fptr,"%s",cread);
+				sread=string(cread);
+				qualifier[iqual]->value.push_back(sread);
 			}
+			fgets(dummy,120,fptr);
+			npars+=1;
 		}
+		qualifier[iqual]->npars=npars;
 	}
-	nqualifiers+=1;
+	nqualifiers=qualifier.size();
 	fclose(fptr);
 }
 
 void CQualifiers::SetPars(CparameterMap *pmap,int iqual){
-	for(int ipar=0;ipar<npars[iqual];ipar++){
-		pmap->set(parname[iqual][ipar],value[iqual][ipar]);
+	for(int ipar=0;ipar<qualifier[iqual]->npars;ipar++){
+		pmap->set(qualifier[iqual]->parname[ipar],qualifier[iqual]->value[ipar]);
+	}
+}
+
+void CQualifiers::Print(){
+	printf("------ QUALIFIERS -------\n");
+	for(int iqual=0;iqual<nqualifiers;iqual++){
+		for(int ipar=0;ipar<qualifier[iqual]->npars;ipar++){
+			printf("%s %s %s\n",qualifier[iqual]->type[ipar].c_str(),qualifier[iqual]->parname[ipar].c_str(),qualifier[iqual]->value[ipar].c_str());
+		}
 	}
 }
 
