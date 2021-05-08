@@ -30,6 +30,7 @@ class CparameterMap : public map<string,string> {
 public:
   bool   getB(string ,bool);
   int    getI(string ,int);
+	long long int getLongI(string ,long long int);
   string getS(string ,string);
   double getD(string ,double);
   vector< double > getV(string, string);
@@ -37,6 +38,7 @@ public:
   vector< vector< double > > getM(string, double);
   void set(string, double);
   void set(string, int);
+	void set(string, long long int);
   void set(string, bool);
   void set(string, string);
   void set(string, char*);

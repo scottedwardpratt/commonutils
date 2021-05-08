@@ -20,7 +20,8 @@ public:
 	void set_mean(double mu);  // For Poisson Dist
 	
 private:
-	std::mt19937 mt;
+	//std::mt19937 mt;   // 32 bit
+	std::mt19937_64 mt;   // 64 bit
 	std::uniform_real_distribution<double> ranu;
 	std::normal_distribution<double> rang;
 	std::poisson_distribution<int> ranp;

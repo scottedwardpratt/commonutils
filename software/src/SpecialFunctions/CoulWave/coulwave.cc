@@ -67,6 +67,36 @@ void CoulWave::GetFGprime(int L,double x,double eta,double *FL,double *GL,double
 	delete [] gcp;
 }
 
+void CoulWave::GetFGPrimeArray(int Lmax,double x,double eta,
+vector<double> &FL,vector<double> &GL,vector<double> &FLprime,vector<double> &GLprime){
+	double expF,expG;
+	double *fc,*gc,*fcp,*gcp;
+	int ell;
+	fc=new double[Lmax+1];
+	gc=new double[Lmax+1];
+	fcp=new double[Lmax+1];
+	gcp=new double[Lmax+1];
+	// This calculates fc and gc arrays for indices L to L+k  
+	gsl_sf_coulomb_wave_FGp_array(0,Lmax,eta,x,fc,fcp,gc,gcp,&expF,&expG);
+	
+	if(int(FL.size())!=Lmax+1){
+		FL.resize(Lmax+1);
+		GL.resize(Lmax+1);
+		FLprime.resize(Lmax+1);
+		GLprime.resize(Lmax+1);			
+	}
+	for(ell=0;ell<=Lmax;ell++){
+		FL[ell]=fc[ell]*exp(expF);
+		GL[ell]=gc[ell]*exp(expG);
+		FLprime[ell]=fcp[ell]*exp(expF);
+		GLprime[ell]=gcp[ell]*exp(expG);
+	}
+	delete [] fc;
+	delete [] gc;
+	delete [] fcp;
+	delete [] gcp;
+}
+
 complex<double> CoulWave::CWoutgoing(int ell,double x,double eta){
 	double FL,GL;
 	complex<double> ci(0.0,1.0);
@@ -327,5 +357,7 @@ void CoulWave::SphericalCWprime(int L,double x,double eta,double *FL,double *GL,
 	delete [] fcp;
 	delete [] gcp;
 }
+
+
 
 #endif

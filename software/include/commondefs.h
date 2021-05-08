@@ -79,6 +79,7 @@ typedef multimap<int,CCharge* > mapic;
 typedef multimap<int,CPart* > mapip;
 //typedef array<double,4> FourVector;
 typedef double FourVector[4];
+typedef double FourTensor[4][4];
 typedef multimap<double,CAction *> CActionMap;
 typedef pair<double,CAction*> CActionPair;
 typedef pair<int,CCharge* > pairic;
