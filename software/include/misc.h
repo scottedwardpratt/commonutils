@@ -30,6 +30,7 @@ namespace Misc{
 	int Sign(int a);
 	void outsidelong(double *pa,double *pb,double &qinv,double &qout,double &qside,double &qlong);
 	void outsidelong(double *pa,double *pb, double &qinv, double &qout, double &qside, double &qlong,double &deleta,double &dely,double &delphi);
+	void outsidelong_lcms(double *pa,double *pb, double &qinv, double &qout,double &qout_lcms,double &qside, double &qlong,double &deleta,double &dely,double &delphi); // qout_lcms is in lcms frame, not rest frame of pair
 	double GetQinv(double *pa,double *pb);
 	//double GetQinv(double *pa,double *pb);
 	double GetRapidity(double *p);

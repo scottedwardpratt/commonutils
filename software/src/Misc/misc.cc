@@ -855,6 +855,51 @@ double &qside,double &qlong,double &deleta,double &dely,double &delphi){
 		delphi+=360.0;
 }
 
+void Misc::outsidelong_lcms(double *pa,double *pb, double &qinv, double &qout,double &qout_lcms,
+double &qside,double &qlong,double &deleta,double &dely,double &delphi){
+	// q.. refer to half relative momenta in pair CM frame
+	double vs,gamma,ptot[4],q[4],qtemp,ptot_perp,pmaga,pmagb,ya,yb,etaa,etab,phia,phib;
+	int alpha;
+	for(alpha=0;alpha<4;alpha++){
+		q[alpha]=0.5*(pa[alpha]-pb[alpha]);
+		ptot[alpha]=pa[alpha]+pb[alpha];
+	}
+	// Perform long. comoving boost
+	vs=ptot[3]/ptot[0];
+	gamma=1.0/sqrt(1.0-vs*vs);
+	ptot[0]=gamma*(ptot[0]-vs*ptot[3]);
+	ptot[3]=0.0;
+	qtemp=q[3];
+	q[3]=gamma*(q[3]-vs*q[0]);
+	q[0]=gamma*(q[0]-vs*qtemp);
+
+	ptot_perp=sqrt(ptot[1]*ptot[1]+ptot[2]*ptot[2]);
+	qout_lcms=qout=fabs(q[1]*ptot[1]+q[2]*ptot[2])/ptot_perp;
+	qside=fabs(q[2]*ptot[1]-q[1]*ptot[2])/ptot_perp;
+	qlong=fabs(q[3]);
+
+	vs=ptot_perp/ptot[0];
+	gamma=1.0/sqrt(1.0-vs*vs);
+	qout=gamma*(qout-vs*q[0]);
+	qinv=sqrt(qout*qout+qlong*qlong+qside*qside);
+	
+	pmaga=sqrt(pa[1]*pa[1]+pa[2]*pa[2]+pa[3]*pa[3]);
+	pmagb=sqrt(pb[1]*pb[1]+pb[2]*pb[2]+pb[3]*pb[3]);
+	etaa=0.5*log((pmaga+pa[3])/(pmaga-pa[3]));
+	etab=0.5*log((pmagb+pb[3])/(pmagb-pb[3]));
+	ya=0.5*log((pa[0]+pa[3])/(pa[0]-pa[3]));
+	yb=0.5*log((pb[0]+pb[3])/(pb[0]-pb[3]));
+	phia=atan2(pa[2],pa[1]);
+	phib=atan2(pb[2],pb[1]);
+	deleta=fabs(etaa-etab);
+	dely=fabs(ya-yb);
+	delphi=(phib-phia)*180.0/PI;
+	if(delphi>180.0)
+		delphi=delphi-360.0;
+	if(delphi<-180.0)
+		delphi+=360.0;
+}
+
 void Misc::Boost(FourVector &u,FourVector &p){
 	int mu;
 	double ndotp,udotn,udotp;
