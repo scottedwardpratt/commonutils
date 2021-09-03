@@ -305,7 +305,7 @@ void Misc::outsidelong(double *pa,double *pb, double &qinv, double &qout, double
 
 	ptot_perp=sqrt(ptot[1]*ptot[1]+ptot[2]*ptot[2]);
 	qout=(q[1]*ptot[1]+q[2]*ptot[2])/ptot_perp;
-	qside=sqrt(q[2]*ptot[1]-q[1]*ptot[2])/ptot_perp;
+	qside=fabs(q[2]*ptot[1]-q[1]*ptot[2])/ptot_perp;
 	qlong=q[3];
 	qinv=sqrt(qlong*qlong+qside*qside+qout*qout);
 
@@ -811,7 +811,7 @@ int Misc::Sign(int a){
 }
 
 void Misc::outsidelong(double *pa,double *pb, double &qinv, double &qout,
-double &qside,double &qlong,double &deleta,double &dely,double &delphi){
+double &qside,double &qlong,double &deleta,double &dely,double &delphi){ // qout is in pair frame
 	// q.. refer to half relative momenta in pair CM frame
 	double vs,gamma,ptot[4],q[4],qtemp,ptot_perp,pmaga,pmagb,ya,yb,etaa,etab,phia,phib;
 	int alpha;
@@ -829,9 +829,9 @@ double &qside,double &qlong,double &deleta,double &dely,double &delphi){
 	q[0]=gamma*(q[0]-vs*qtemp);
 
 	ptot_perp=sqrt(ptot[1]*ptot[1]+ptot[2]*ptot[2]);
-	qout=fabs(q[1]*ptot[1]+q[2]*ptot[2])/ptot_perp;
-	qside=fabs(q[2]*ptot[1]-q[1]*ptot[2])/ptot_perp;
-	qlong=fabs(q[3]);
+	qout=(q[1]*ptot[1]+q[2]*ptot[2])/ptot_perp;
+	qside=(q[2]*ptot[1]-q[1]*ptot[2])/ptot_perp;
+	qlong=(q[3]);
 
 	vs=ptot_perp/ptot[0];
 	gamma=1.0/sqrt(1.0-vs*vs);
@@ -848,16 +848,14 @@ double &qside,double &qlong,double &deleta,double &dely,double &delphi){
 	phib=atan2(pb[2],pb[1]);
 	deleta=fabs(etaa-etab);
 	dely=fabs(ya-yb);
-	delphi=(phib-phia)*180.0/PI;
+	delphi=fabs(phib-phia)*180.0/PI;
 	if(delphi>180.0)
-		delphi=delphi-360.0;
-	if(delphi<-180.0)
-		delphi+=360.0;
+		delphi=360.0-delphi;
 }
 
 void Misc::outsidelong_lcms(double *pa,double *pb, double &qinv, double &qout,double &qout_lcms,
 double &qside,double &qlong,double &deleta,double &dely,double &delphi){
-	// q.. refer to half relative momenta in pair CM frame
+	// q.. refer to half relative momenta in pair CM frame, qout is in pair frame, qout_lcms is in LCMS frame
 	double vs,gamma,ptot[4],q[4],qtemp,ptot_perp,pmaga,pmagb,ya,yb,etaa,etab,phia,phib;
 	int alpha;
 	for(alpha=0;alpha<4;alpha++){
@@ -874,13 +872,13 @@ double &qside,double &qlong,double &deleta,double &dely,double &delphi){
 	q[0]=gamma*(q[0]-vs*qtemp);
 
 	ptot_perp=sqrt(ptot[1]*ptot[1]+ptot[2]*ptot[2]);
-	qout_lcms=qout=fabs(q[1]*ptot[1]+q[2]*ptot[2])/ptot_perp;
-	qside=fabs(q[2]*ptot[1]-q[1]*ptot[2])/ptot_perp;
-	qlong=fabs(q[3]);
+	qout_lcms=qout=(q[1]*ptot[1]+q[2]*ptot[2])/ptot_perp;
+	qside=(q[2]*ptot[1]-q[1]*ptot[2])/ptot_perp;
+	qlong=q[3];
 
 	vs=ptot_perp/ptot[0];
 	gamma=1.0/sqrt(1.0-vs*vs);
-	qout=gamma*(qout-vs*q[0]);
+	qout=gamma*(qout_lcms-vs*q[0]);
 	qinv=sqrt(qout*qout+qlong*qlong+qside*qside);
 	
 	pmaga=sqrt(pa[1]*pa[1]+pa[2]*pa[2]+pa[3]*pa[3]);
@@ -893,11 +891,9 @@ double &qside,double &qlong,double &deleta,double &dely,double &delphi){
 	phib=atan2(pb[2],pb[1]);
 	deleta=fabs(etaa-etab);
 	dely=fabs(ya-yb);
-	delphi=(phib-phia)*180.0/PI;
+	delphi=fabs(phib-phia)*180.0/PI;
 	if(delphi>180.0)
-		delphi=delphi-360.0;
-	if(delphi<-180.0)
-		delphi+=360.0;
+		delphi=360.0-delphi;
 }
 
 void Misc::Boost(FourVector &u,FourVector &p){
