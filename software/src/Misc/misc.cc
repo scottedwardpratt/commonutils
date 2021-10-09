@@ -26,39 +26,6 @@ double Misc::DotProduct(FourVector &p,FourVector &q){
 	return p[0]*q[0]-p[1]*q[1]-p[2]*q[2]-p[3]*q[3];
 }
 
-void Misc::lorentz(FourVector &u,FourVector &p,FourVector &pprime){
-	int alpha;
-	double pdotu=p[0]*u[0]-p[1]*u[1]-p[2]*u[2]-p[3]*u[3];
-	double A=-(pdotu+p[0])/(1.0+u[0]);
-	for(alpha=0;alpha<4;alpha++)
-		pprime[alpha]=p[alpha];
-	pprime[0]+=A;
-	for(alpha=0;alpha<4;alpha++)
-		pprime[alpha]+=(A+2*p[0])*u[alpha];
-}
-
-void Misc::Boost(FourVector &u,FourVector &p,FourVector &pprime){
-	int alpha;
-	double pdotu=p[0]*u[0]-p[1]*u[1]-p[2]*u[2]-p[3]*u[3];
-	double A=-(pdotu+p[0])/(1.0+u[0]);
-	for(alpha=0;alpha<4;alpha++)
-		pprime[alpha]=p[alpha];
-	pprime[0]+=A;
-	for(alpha=0;alpha<4;alpha++)
-		pprime[alpha]+=(A+2*p[0])*u[alpha];
-}
-
-void Misc::BoostToCM(FourVector &u,FourVector &p,FourVector &ptilde){
-	int alpha;
-	double pdotu=p[0]*u[0]-p[1]*u[1]-p[2]*u[2]-p[3]*u[3];
-	double A=-(pdotu+p[0])/(1.0+u[0]);
-	for(alpha=0;alpha<4;alpha++)
-		ptilde[alpha]=p[alpha];
-	ptilde[0]+=A+2*pdotu;
-	for(alpha=0;alpha<4;alpha++)
-		ptilde[alpha]+=A*u[alpha];
-}
-
 double Misc::triangle(double m0,double m1,double m2){
 	double answer,m0sq,m1sq,m2sq;
 	if(m0<m1+m2) {
@@ -126,101 +93,6 @@ complex<double> Misc::cpow(complex<double> z,complex<double> a){
 	complex<double> alnz=a*(log(zmag)+ci*phi);
 	return cexp(alnz);
 }
-
-
-
-//! Lorentz boost p to pprime with boost velocity u
-//! \param u the boost velocity ( assumed to be 4-velocity so \f$ u^2=1 \f$ )
-//! \param p the vector to boost
-//! \param pprime the boosted version of p
-//! A simple example shows how to use this function correctly.  Suppose
-//! we wish to boost from rest to some frame moving in the +z direction with velocity 0.2c.
-//! In this case, we use \f$ u = \gamma*( 1, 0, 0, 0.2 ) \f$ where 
-//! \f$ \gamma = 1/\sqrt(1-0.2^2) = 1.02062 \f$.
-/*
-void Misc::lorentz(double *u,double *p,double *pprime){
-	const int n[4]={1,0,0,0};
-	const int g[4]={1,-1,-1,-1};
-	int mu;
-	double udotn=0.0,pdotn=0.0,pdotu=0.0;
-	//double mtest=0.0,mtestprime=0.0;
-	for(mu=0;mu<4;mu++){
-		//mtest=mtest+p[mu]*p[mu]*g[mu];
-		pdotn=pdotn+p[mu]*n[mu]*g[mu];
-		pdotu=pdotu+p[mu]*u[mu]*g[mu];
-		udotn=udotn+u[mu]*n[mu]*g[mu];
-	}
-	for(mu=0;mu<4;mu++){
-		pprime[mu]=-((pdotu+pdotn)/(1.0+udotn))*(n[mu]+u[mu])+2*pdotn*u[mu]+p[mu];
-	}
-}
-*/
-
-void Misc::BoostToCM(double *u,double **Pi,double **PiTilde){
-	int alpha,beta,gamma,delta;
-	double Linv[4][4],L[4][4];  // Lorentz Boost Matrices
-	double ucontra[4]={u[0],-u[1],-u[2],-u[3]},n[4]={1.0,0,0,0};
-	for(alpha=0;alpha<4;alpha++){
-		for(beta=0;beta<4;beta++){
-			Linv[alpha][beta]=2.0*n[alpha]*ucontra[beta]-(u[alpha]+n[alpha])*(ucontra[beta]+n[beta])/(1.0+u[0]);
-			if(alpha==beta) Linv[alpha][beta]+=1.0;
-			L[beta][alpha]=Linv[alpha][beta];
-		}
-	}
-	for(alpha=0;alpha<4;alpha++){
-		for(delta=0;delta<4;delta++){
-			PiTilde[alpha][delta]=0.0;
-			for(beta=0;beta<4;beta++){
-				for(gamma=0;gamma<4;gamma++){
-					PiTilde[alpha][delta]+=Linv[alpha][beta]*Pi[beta][gamma]*L[gamma][delta];
-				}
-			}
-		}
-	}
-}
-
-void Misc::Boost(double *u,double **PiTilde,double **Pi){
-	int alpha,beta,gamma,delta;
-	double Linv[4][4],L[4][4];  // Lorentz Boost Matrices
-	double ucontra[4]={u[0],-u[1],-u[2],-u[3]},n[4]={1.0,0,0,0};
-	for(alpha=0;alpha<4;alpha++){
-		for(beta=0;beta<4;beta++){
-			Linv[alpha][beta]=2.0*n[alpha]*u[beta]-(ucontra[alpha]+n[alpha])*(u[beta]+n[beta])/(1.0+u[0]);
-			if(alpha==beta) Linv[alpha][beta]+=1.0;
-			L[beta][alpha]=Linv[alpha][beta];
-		}
-	}
-	for(alpha=0;alpha<4;alpha++){
-		for(delta=0;delta<4;delta++){
-			Pi[alpha][delta]=0.0;
-			for(beta=0;beta<4;beta++){
-				for(gamma=0;gamma<4;gamma++){
-					Pi[alpha][delta]+=L[alpha][beta]*PiTilde[beta][gamma]*Linv[gamma][delta];
-				}
-			}
-		}
-	}	
-}
-/*
-void Misc::Boost(double *u,double *ptilde,double *p){
-	double ptildedotu=ptilde[0]*u[0]-ptilde[1]*u[1]-ptilde[2]*u[2]-ptilde[3]*u[3];
-	const double n[4]={1.0,0,0,0};
-	for(int alpha=0;alpha<4;alpha++){
-		p[alpha]=ptilde[alpha]+2.0*u[alpha]*ptilde[0]-(u[alpha]+n[alpha])*(ptildedotu+ptilde[0])/(1.0+u[0]);
-	}
-}
-*/
-
-/*
-void Misc::BoostToCM(double *u,double *p,double *ptilde){
-	double pdotu=p[0]*u[0]-p[1]*u[1]-p[2]*u[2]-p[3]*u[3];
-	const double n[4]={1.0,0,0,0};
-	for(int alpha=0;alpha<4;alpha++){
-		ptilde[alpha]=p[alpha]+2.0*n[alpha]*pdotu-(u[alpha]+n[alpha])*(pdotu+p[0])/(1.0+u[0]);
-	}
-}
-*/
-
 
 int Misc::iround(double x){
 	return int(floor(x+0.5));
@@ -447,12 +319,6 @@ complex<double>& z1, complex<double>& z2,complex<double>& z3){
 	z1=z[0]; z2=z[1]; z3=z[2];
 }
 
-
-#include <iostream>
-#include <cmath>
-#include <complex>
-
-using namespace std;
 
 double Misc::signswitch(double a, double b) {
 	if (b>=0.0) return fabs(a);
@@ -895,18 +761,5 @@ double &qside,double &qlong,double &deleta,double &dely,double &delphi){
 	if(delphi>180.0)
 		delphi=360.0-delphi;
 }
-
-void Misc::Boost(FourVector &u,FourVector &p){
-	int mu;
-	double ndotp,udotn,udotp;
-	ndotp=p[0];
-	udotn=u[0];
-	udotp=u[0]*p[0]-u[1]*p[1]-u[2]*p[2]-u[3]*p[3];
-	p[0]=p[0]-((udotp+ndotp)/(1.0+udotn));
-	for(mu=0;mu<4;mu++){
-		p[mu]=-((udotp+ndotp)/(1.0+udotn))*u[mu]+2*ndotp*u[mu]+p[mu];
-	}
-}
-
 
 #endif

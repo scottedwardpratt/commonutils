@@ -10,6 +10,7 @@ namespace Misc{
 	void lorentz(FourVector &u,FourVector &p,FourVector &pprime);
 	void BoostToCM(FourVector &u,FourVector &p,FourVector &ptilde);
 	void Boost(FourVector &u,FourVector &ptilde,FourVector &p);
+	void Boost(FourVector &u,FourVector &p);
 	
 	//void lorentz(double *u,double *p1,double *p1prime);
 	// These find tensor/vector in cm frame (same as above)
