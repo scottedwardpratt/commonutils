@@ -19,7 +19,7 @@ public:
 		Ntry=Nsuccess=0;
 	}
 	double M,m1,m2,m3,m4,wmax3,wmax4,M12,M34,q12,q34,Qmag,maxfactor3,maxfactor4,wmaxmax3,wmaxmax4,wmaxmax;
-	double wmax,maxfactor,KEtot;
+	double wmax,maxfactor,KEtot,qbar;
 	vector<double> Msum,masses,qsum;
 	int nbodies;
 	long long unsigned int Ntry,Nsuccess;

@@ -54,7 +54,7 @@ void CDecay_NBody::SetMasses(int nbodies_set,vector<double> masses_set){
 	nbodies=nbodies_set;
 	masses=masses_set;
 	//maxfactor=1.0;
-	maxfactor=1.0+0.017*(nbodies-2.0)+0.42*tanh((nbodies-2.0)/2.8);
+	maxfactor=1.0+0.028*(nbodies-2.0)+0.41*tanh((nbodies-2.0)/2.8);
 	qsum.resize(nbodies);
 	if(int(masses.size())<=nbodies){
 		printf("nbodies is incorrect for CDecay_NBody::SetMasses\n");
@@ -74,19 +74,19 @@ void CDecay_NBody::SetMasses(int nbodies_set,vector<double> masses_set){
 		Msum[i]=Msum[i-1]+masses[i+1]+KEtot/double(nbodies-1);
 	}
 	wmax=1.0;
+	qbar=sqrt(KEtot*masses[0])/double(nbodies);
 	w=GetW();
 	wmax=w*maxfactor;
 }
 
+// this is experimental
 void CDecay_NBody::SetMasses_Trial(int nbodies_set,vector<double> masses_set){
 	double w;
 	int i;
+	//vector<double> maxfactor={1.0,1.0,1.0,1.03,1.04,1.05,1.06,1.06,}
 	nbodies=nbodies_set;
 	masses=masses_set;
-	if(nbodies==3)
-		maxfactor=1.09;
-	else
-		maxfactor=1.13+0.02*(nbodies-4);
+	maxfactor=1.0;
 	qsum.resize(nbodies);
 	if(int(masses.size())<=nbodies){
 		printf("nbodies is incorrect for CDecay_NBody::SetMasses\n");
@@ -101,32 +101,37 @@ void CDecay_NBody::SetMasses_Trial(int nbodies_set,vector<double> masses_set){
 		printf("masses don't add up in CDecay_NBody::SetMasses\n");
 		exit(1);
 	}
-	/*
-	double mu,KEsum,q,E,epsilon;
+	
+	double mu,msum,KEsum,epsilon;
 	vector<double> KE(nbodies);
-	//KE.resize(nbodies);
+	KE.resize(nbodies);
 	Msum[0]=masses[1];
 	KEsum=0.0;
+	epsilon=KEtot/(nbodies-1);
+	msum=masses[1];
 	for(i=1;i<nbodies;i++){
-		Msum[i]=Msum[i-1]+masses[i+1]+KEtot/double(nbodies-1);
-		q=sqrt(triangle(Msum[i],Msum[i-1],masses[i+1]));
-		E=sqrt(q*q+Msum[i-1]*Msum[i-1]);
-		epsilon=sqrt(q*q+masses[i+1]*masses[i+1]);
-		mu=E*epsilon/(E+epsilon);
-		//KE[i]=1.0;
-		KE[i]=pow(mu,-0.125);
+		if(msum>1.0E-9 || masses[i+1]>1.0E-9){
+			mu=msum*masses[i+1]/(msum+masses[i+1]);
+			//KE[i]=1.0+epsilon*epsilon/(mu*mu+epsilon*epsilon);
+			KE[i]=1.0+1.5*epsilon/(mu+epsilon);
+			msum+=masses[i+1]+epsilon;
+		}
+		else{
+			KE[i]=2.0;
+		}
 		KEsum+=KE[i];
 	}
 	for(i=1;i<nbodies;i++){
 		KE[i]=KEtot*KE[i]/KEsum;
 		Msum[i]=Msum[i-1]+masses[i+1]+KE[i];
 	}
-	*/
+	
 	
 	//printf("Msum[nbodies-1]=%g\n",Msum[nbodies-1]);
 	wmax=1.0;
 	w=GetW();
-	wmax=w*maxfactor;
+	qbar=sqrt(KEtot*masses[0])/double(nbodies);
+	wmax=w*maxfactor/qbar;
 }
 
 
@@ -307,7 +312,7 @@ double CDecay_NBody::GetW(){
 	double w=1.0;
 	for(i=1;i<nbodies;i++){
 		qsum[i]=sqrt(Misc::triangle(Msum[i],Msum[i-1],masses[i+1]));
-		w*=qsum[i];
+		w*=qsum[i]/qbar;
 	}
 	w=w/wmax;
 	return w;
