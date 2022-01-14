@@ -34,9 +34,11 @@ CGSLMatrix_Real::~CGSLMatrix_Real(){
 
 void CGSLMatrix_Real::SolveLinearEqs(double *y,double **A,double *x){
 	int i,j,s;
-	if(v==NULL) v=gsl_vector_alloc(dim);
+	if(v==NULL)
+		v=gsl_vector_alloc(dim);
 
-	if(m==NULL) m=gsl_matrix_alloc(dim,dim);
+	if(m==NULL)
+		m=gsl_matrix_alloc(dim,dim);
 
 	for(i=0;i<dim;i++){
 		gsl_vector_set(v,i,y[i]);
@@ -50,7 +52,44 @@ void CGSLMatrix_Real::SolveLinearEqs(double *y,double **A,double *x){
 	gsl_linalg_LU_decomp (m,p,&s);
 	gsl_linalg_LU_solve (m, p,v,g);
 
-	for(i=0;i<dim;i++) x[i]=gsl_vector_get(g,i);
+	for(i=0;i<dim;i++)
+		x[i]=gsl_vector_get(g,i);
+}
+
+void CGSLMatrix_Real::SolveLinearEqs(vector<double> &y,vector<vector<double>> &A,vector<double> &x){
+	int i,j,s;
+	if(v==NULL)
+		v=gsl_vector_alloc(dim);
+
+	if(m==NULL)
+		m=gsl_matrix_alloc(dim,dim);
+
+	for(i=0;i<dim;i++){
+		gsl_vector_set(v,i,y[i]);
+		for(j=0;j<dim;j++)
+			gsl_matrix_set(m,i,j,A[i][j]);
+	}
+
+	if(g==NULL) g = gsl_vector_alloc (dim);
+	if(p==NULL) p = gsl_permutation_alloc (dim);
+
+	gsl_linalg_LU_decomp (m,p,&s);
+	gsl_linalg_LU_solve (m, p,v,g);
+
+	for(i=0;i<dim;i++)
+		x[i]=gsl_vector_get(g,i);
+}
+
+double CGSLMatrix_Real::LnDeterminant(vector<vector<double>> &A){
+	int i,j,s;
+	if(m==NULL)
+		m=gsl_matrix_alloc(dim,dim);
+	for(i=0;i<dim;i++){
+		for(j=0;j<dim;j++)
+			gsl_matrix_set(m,i,j,A[i][j]);
+	}
+	gsl_linalg_LU_decomp (m, p, &s);
+	return gsl_linalg_LU_det (m, s);
 }
 
 void CGSLMatrix_Real::EigenFind(double **A,double **eigenvec,double *eigenval){

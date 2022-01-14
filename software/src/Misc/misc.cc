@@ -45,15 +45,15 @@ double Misc::triangle2(double m0sq,double m1sq,double m2sq){
 		-2.0*(m0sq*m1sq+m0sq*m2sq+m1sq*m2sq))/(4.0*m0sq);
 }
 
-double Misc::GetRapidity(double *pa){
+double Misc::GetRapidity(FourVector &pa){
 	return 0.5*log((pa[0]+pa[3])/(pa[0]-pa[3]));
 }
 
-double Misc::GetDely(double *pa,double *pb){
+double Misc::GetDely(FourVector &pa,FourVector &pb){
 	return GetRapidity(pa)-GetRapidity(pb);
 }
 
-double Misc::GetQinv(double *pa,double *pb){
+double Misc::GetQinv(FourVector &pa,FourVector &pb){
 	double answer;
 	answer=0;
 	answer=pow(pa[1]-pb[1],2)+pow(pa[2]-pb[2],2)+pow(pa[3]-pb[3],2)-pow(pa[0]-pb[0],2);
@@ -65,7 +65,7 @@ double Misc::GetQinv(double *pa,double *pb){
 }
 
 /*
-double Misc::GetQinv(double *pa, double *pb){
+double Misc::GetQinv(FourVector &pa, FourVector &pb){
 	double answer;
 	answer=0;
 	answer=pow(pa[1]-pb[1],2)+pow(pa[2]-pb[2],2)+pow(pa[3]-pb[3],2)-pow(pa[0]-pb[0],2);
@@ -158,7 +158,7 @@ double Misc::cgc_fractorial(double n,double m){
 
 int Misc::cgc_delta (int x, int y) {if (x==y) return 1; else return 0;}
 
-void Misc::outsidelong(double *pa,double *pb, double &qinv, double &qout, double &qside, double &qlong){
+void Misc::outsidelong(FourVector &pa,FourVector &pb, double &qinv, double &qout, double &qside, double &qlong){
 	double vs,gamma,ptot[4],q[4],qtemp,ptot_perp;
 	int alpha;
 	for(alpha=0;alpha<4;alpha++){
@@ -676,7 +676,7 @@ int Misc::Sign(int a){
 	}
 }
 
-void Misc::outsidelong(double *pa,double *pb, double &qinv, double &qout,
+void Misc::outsidelong(FourVector &pa,FourVector &pb, double &qinv, double &qout,
 double &qside,double &qlong,double &deleta,double &dely,double &delphi){ // qout is in pair frame
 	// q.. refer to half relative momenta in pair CM frame
 	double vs,gamma,ptot[4],q[4],qtemp,ptot_perp,pmaga,pmagb,ya,yb,etaa,etab,phia,phib;
@@ -719,7 +719,7 @@ double &qside,double &qlong,double &deleta,double &dely,double &delphi){ // qout
 		delphi=360.0-delphi;
 }
 
-void Misc::outsidelong_lcms(double *pa,double *pb, double &qinv, double &qout,double &qout_lcms,
+void Misc::outsidelong_lcms(FourVector &pa,FourVector &pb, double &qinv, double &qout,double &qout_lcms,
 double &qside,double &qlong,double &deleta,double &dely,double &delphi){
 	// q.. refer to half relative momenta in pair CM frame, qout is in pair frame, qout_lcms is in LCMS frame
 	double vs,gamma,ptot[4],q[4],qtemp,ptot_perp,pmaga,pmagb,ya,yb,etaa,etab,phia,phib;

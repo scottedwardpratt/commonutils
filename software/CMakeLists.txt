@@ -4,7 +4,7 @@ set(CXX $ENV{CXX})
 project(commonutils CXX C)
 message("CXX is ${CXX}   GITHOME_MSU=${GITHOME_MSU}")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -O3 -fpie -fopenmp")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -O3 -fpie")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wextra -Wmissing-declarations -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wundef -Wcast-align -Wformat=2 -Wold-style-cast -Werror=switch -std=c++17 -mfpmath=sse")
 message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS})
 

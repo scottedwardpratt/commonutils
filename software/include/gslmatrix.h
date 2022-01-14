@@ -12,11 +12,13 @@ public:
 	int dim;
 	// solve y=A*x for x
 	void SolveLinearEqs(double *y,double **A,double *x);
+	void SolveLinearEqs(vector<double> &y,vector<vector<double>> &A,vector<double> &x);
 	void EigenFind(double **A,double **eigenvec,double *eigenval); // A must be symmetric
 	void Invert(double **A,double **Ainv); // A must be symmetric
 	void Cholesky_Invert(double **A,double **Ainv);
 	void Invert_NonSymm(double **A,double **Ainv);
 	void Print(double **A);
+	double LnDeterminant(vector<vector<double>> &A);
 	CGSLMatrix_Real(int dimset);
 	~CGSLMatrix_Real();
 private:

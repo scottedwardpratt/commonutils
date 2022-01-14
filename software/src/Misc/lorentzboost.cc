@@ -37,7 +37,7 @@ void Misc::BoostToCM(FourVector &u,FourVector &p,FourVector &ptilde){
 		ptilde[alpha]+=A*u[alpha];
 }
 
-void Misc::BoostToCM(double *u,double **Pi,double **PiTilde){
+void Misc::BoostToCM(FourVector &u,double **Pi,double **PiTilde){
 	int alpha,beta,gamma,delta;
 	double Linv[4][4],L[4][4];  // Lorentz Boost Matrices
 	double ucontra[4]={u[0],-u[1],-u[2],-u[3]},n[4]={1.0,0,0,0};
@@ -60,7 +60,7 @@ void Misc::BoostToCM(double *u,double **Pi,double **PiTilde){
 	}
 }
 
-void Misc::Boost(double *u,double **PiTilde,double **Pi){
+void Misc::Boost(FourVector &u,double **PiTilde,double **Pi){
 	int alpha,beta,gamma,delta;
 	double Linv[4][4],L[4][4];  // Lorentz Boost Matrices
 	double ucontra[4]={u[0],-u[1],-u[2],-u[3]},n[4]={1.0,0,0,0};

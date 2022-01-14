@@ -12,14 +12,14 @@ namespace Misc{
 	void Boost(FourVector &u,FourVector &ptilde,FourVector &p);
 	void Boost(FourVector &u,FourVector &p);
 	
-	//void lorentz(double *u,double *p1,double *p1prime);
+	//void lorentz(FourVector &u,FourVector &p1,FourVector &p1prime);
 	// These find tensor/vector in cm frame (same as above)
-	void BoostToCM(double *u,double **Pi,double **PiTilde);
-	//void BoostToCM(double *u,double *p,double *ptilde);
+	void BoostToCM(FourVector &u,double **Pi,double **PiTilde);
+	//void BoostToCM(FourVector u,FourVector p,FourVector ptilde);
 
 	// Given tensor/vector in cm frame, this finds value in lab frame
-	void Boost(double *u,double **PiTilde,double **Pi);
-	//void Boost(double *u,double *ptilde,double *p);
+	void Boost(FourVector &u,double **PiTilde,double **Pi);
+	//void Boost(FourVector &u,FourVector ptilde,FourVector p);
 	void Boost(FourVector &u,FourVector &p);
 
 	double cgc(double j1,double m1,double j2,double m2,double j,double m);
@@ -29,13 +29,13 @@ namespace Misc{
 	double triangle2(double m0squared,double m1squared,double m2squared);
 	//double PCMS(double M, double particle_i, double particle_j);
 	int Sign(int a);
-	void outsidelong(double *pa,double *pb,double &qinv,double &qout,double &qside,double &qlong);
-	void outsidelong(double *pa,double *pb, double &qinv, double &qout, double &qside, double &qlong,double &deleta,double &dely,double &delphi);
-	void outsidelong_lcms(double *pa,double *pb, double &qinv, double &qout,double &qout_lcms,double &qside, double &qlong,double &deleta,double &dely,double &delphi); // qout_lcms is in lcms frame, not rest frame of pair
-	double GetQinv(double *pa,double *pb);
-	//double GetQinv(double *pa,double *pb);
-	double GetRapidity(double *p);
-	double GetDely(double *pa,double *pb);
+	void outsidelong(FourVector &pa,FourVector &pb,double &qinv,double &qout,double &qside,double &qlong);
+	void outsidelong(FourVector &pa,FourVector &pb, double &qinv, double &qout, double &qside, double &qlong,double &deleta,double &dely,double &delphi);
+	void outsidelong_lcms(FourVector &pa,FourVector &pb, double &qinv, double &qout,double &qout_lcms,double &qside, double &qlong,double &deleta,double &dely,double &delphi); // qout_lcms is in lcms frame, not rest frame of pair
+	double GetQinv(FourVector &pa,FourVector &pb);
+	//double GetQinv(FourVector &pa,FourVector &pb);
+	double GetRapidity(FourVector &p);
+	double GetDely(FourVector &pa,FourVector &pb);
 
 	complex<double> cexp(complex<double> z);
 	complex<double> ceiphi(double phi);
