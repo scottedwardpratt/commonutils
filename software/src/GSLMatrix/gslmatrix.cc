@@ -80,15 +80,22 @@ void CGSLMatrix_Real::SolveLinearEqs(vector<double> &y,vector<vector<double>> &A
 		x[i]=gsl_vector_get(g,i);
 }
 
-double CGSLMatrix_Real::LnDeterminant(vector<vector<double>> &A){
-	int i,j,s;
+double CGSLMatrix_Real::Determinant(vector<vector<double>> &A){
+	int i,j,s=0;
 	if(m==NULL)
 		m=gsl_matrix_alloc(dim,dim);
+	if(p==NULL) p = gsl_permutation_alloc (dim);
+	
 	for(i=0;i<dim;i++){
-		for(j=0;j<dim;j++)
+		for(j=0;j<dim;j++){
 			gsl_matrix_set(m,i,j,A[i][j]);
+			printf("m[%d][%d]=%g\n",i,j,gsl_matrix_get(m,i,j));
+		}
 	}
+	
+	printf("howdy, dim=%d\n",dim);
 	gsl_linalg_LU_decomp (m, p, &s);
+	printf("hmmmm\n");
 	return gsl_linalg_LU_det (m, s);
 }
 

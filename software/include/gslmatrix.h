@@ -18,7 +18,7 @@ public:
 	void Cholesky_Invert(double **A,double **Ainv);
 	void Invert_NonSymm(double **A,double **Ainv);
 	void Print(double **A);
-	double LnDeterminant(vector<vector<double>> &A);
+	double Determinant(vector<vector<double>> &A);
 	CGSLMatrix_Real(int dimset);
 	~CGSLMatrix_Real();
 private:
