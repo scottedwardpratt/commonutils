@@ -108,6 +108,6 @@ int CRandy::poisson(){
 
 void CRandy::set_mean(double mu){
 	using param_t = std::poisson_distribution<int>::param_type;
-	ranp.param(param_t(mu));
+	ranp.param(param_t{mu});
 }
 
