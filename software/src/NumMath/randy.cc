@@ -4,7 +4,8 @@ using namespace std;
 
 CRandy::CRandy(int iseed){
 	seed=iseed;
-	mt.seed(seed);	
+	mt.seed(seed);
+
 }
 
 void CRandy::reset(int iseed){
@@ -107,7 +108,10 @@ int CRandy::poisson(){
 }
 
 void CRandy::set_mean(double mu){
-	using param_t = std::poisson_distribution<int>::param_type;
-	ranp.param(param_t{mu});
+	ranp=std::poisson_distribution<int>(mu);
+
+	//ranp.reset(mu);
+	//using param_t = std::poisson_distribution<int>::param_type;
+	//ranp.param(param_t{mu});
 }
 
