@@ -155,6 +155,14 @@ void CparameterMap::set(string key,int val)
   ss<<val;ss>>sval; 
   set(key,sval);
 }
+//Adds an int to the map.
+void CparameterMap::set(string key,unsigned int val)
+{
+  string sval;
+  stringstream ss; 
+  ss<<val;ss>>sval; 
+  set(key,sval);
+}
 //Adds a lon long int to the map.
 void CparameterMap::set(string key,int long long val)
 {

@@ -38,6 +38,7 @@ public:
   vector< vector< double > > getM(string, double);
   void set(string, double);
   void set(string, int);
+  void set(string, unsigned int);
 	void set(string, long long int);
   void set(string, bool);
   void set(string, string);
