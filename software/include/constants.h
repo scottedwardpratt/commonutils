@@ -7,7 +7,7 @@
 const double ZERO         = 0.0;
 const double HBARC        = 197.3269718;       // hbar times c
 const double ALPHA        = 1.0/137.03599976;   // fine structure constant
-const double PI           = 3.141592653589793238462643383279;  
+const double PI           = 3.1415926535897932384626433832795028841972;  
 const double SQRTPI       = 1.772453850905516;
 const double SQRTFOURPI   = 3.544907702;
 const double DEGRAD       = 57.29577951308232;

@@ -10,9 +10,11 @@ public:
 	CRandy(int iseed);
 	int seed;
 	double ran();
-	double ran_gauss();
+	double ran_gauss(); // return x propto exp(-x^2/2), <x^2> = 1
 	void ran_gauss2(double &g1,double &g2);
-	double ran_exp();
+	double ran_exp(); // return x propto exp(-x)
+	double ran_lorentzian(); // return x propto 1/(1+4x^2), i.e. multiply by full width
+	double ran_invcosh();    // return x propto 1/cosh(x), <x^2> = PI^2/4.
 	void reset(int iseed);
 	void generate_boltzmann(double mass,double T,FourVector &p);
 	void generate_boltzmann_alt(double mass,double T,FourVector &p);

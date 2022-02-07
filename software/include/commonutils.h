@@ -27,5 +27,6 @@
 #include "qualifier.h"
 #include "randy.h"
 #include "sf.h"
+#include "log.h"
 
 #endif

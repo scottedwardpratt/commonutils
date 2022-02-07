@@ -47,7 +47,8 @@ void CQualifiers::Read(string qfilename){
 			fgets(dummy,120,fptr);
 			npars+=1;
 		}
-		qualifier[iqual]->npars=npars;
+		if(iqual>=0)
+			qualifier[iqual]->npars=npars;
 	}
 	nqualifiers=qualifier.size();
 	fclose(fptr);

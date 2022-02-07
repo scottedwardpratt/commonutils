@@ -1,4 +1,5 @@
 #include "randy.h"
+#include "constants.h"
 
 using namespace std;
 
@@ -40,7 +41,7 @@ void CRandy::ran_gauss2(double &ra,double &rb){
 }
 
 void CRandy::generate_boltzmann_alt(double mass,double T,FourVector &p){
-	const double PI=4.0*atan(1.0);
+	//const double PI=4.0*atan(1.0);
 	double r1,r2,r3,r0,I1,I2,I3,Itot;
 	double pmag,E,ctheta,stheta,phi,K;
 	array<double,4> pp;
@@ -80,7 +81,7 @@ void CRandy::generate_boltzmann_alt(double mass,double T,FourVector &p){
 }
 
 void CRandy::generate_boltzmann(double mass,double T,FourVector &p){
-	const double PI=4.0*atan(1.0);
+	//const double PI=4.0*atan(1.0);
 	double r1,r2,r3,a,b,c;
 	double pmag,ctheta,stheta,phi;
 	if(T/mass>0.6){
@@ -113,5 +114,15 @@ void CRandy::set_mean(double mu){
 	//ranp.reset(mu);
 	//using param_t = std::poisson_distribution<int>::param_type;
 	//ranp.param(param_t{mu});
+}
+
+double CRandy::ran_lorentzian(){  //
+	double r=ran();
+	return 0.5*(tan(PI*(r-0.5)));
+}
+
+double CRandy::ran_invcosh(){ // return propto 1/cosh(x)
+	double r=ran();
+	return asinh(tan(PI*(r-0.5)));
 }
 
