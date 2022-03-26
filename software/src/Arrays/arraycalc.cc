@@ -1,7 +1,5 @@
-#ifndef __INCLUDE_CARTHARMCALC_CC
-#define __INCLUDE_CARTHARMCALC_CC
-#include "arrays.h"
-#include "sf.h"
+#include "msu_commonutils/arrays.h"
+#include "msu_commonutils/sf.h"
 using namespace std;
 
 void ArrayCalc::CalcAExpArrayFromMArray(CCHArray *M,int irm,CCHArray *A,int ira){
@@ -983,5 +981,3 @@ void ArrayCalc::InvertArray(CCHArray *A,int ira,CCHArray *B,int irb){
 	DivideArrays(A,ira,C,0,B,irb);
 	delete (C);
 }
-
-#endif

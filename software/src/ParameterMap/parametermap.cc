@@ -1,7 +1,4 @@
-#ifndef parameterMap_CC
-#define parameterMap_CC
-
-#include "parametermap.h" 
+#include "msu_commonutils/parametermap.h" 
 
 //Returns an integer from the map.
 int CparameterMap::getI(string key,int def)
@@ -291,6 +288,33 @@ void CparameterMap::PrintPars(){
   }
 }
 
+//Returns a matrix from the map                                                                                         
+vector< vector< double > > CparameterMap::getM( string key){
+  vector< vector< double > > mtx;
+  double tmp;
+  map<string,string>::iterator itr;
+  itr = this->find(key);
+  if(itr!=this->end()){
+    stringstream ss(itr->second);
+    string line("");
+    while (ss.good()){
+      vector< double > vec;
+      while ((line=="")&&ss.good()) {
+  getline(ss,line);
+        stringstream buf(line);
+        while (buf>>tmp) {vec.push_back(tmp);}
+      }
+      line = "";
+      if (vec.size()!=0) mtx.push_back(vec);
+    }
+  }else{
+    vector< double > vec(1,0.);
+    mtx.push_back(vec);
+  }
+  return mtx;
+}
+
+
 //Returns a matrix from the map
 vector< vector< double > > CparameterMap::getM( string key, double def){
   vector< vector< double > > mtx;
@@ -316,5 +340,3 @@ vector< vector< double > > CparameterMap::getM( string key, double def){
   }
   return mtx;
 }
-
-#endif

@@ -1,7 +1,4 @@
-#ifndef __COULWAVE_CC
-#define __COULWAVE_CC
-#define NO_GSLCOULWAVE_BUG
-#include "sf.h"
+#include "msu_commonutils/sf.h"
 
 using namespace std;
 
@@ -358,6 +355,3 @@ void CoulWave::SphericalCWprime(int L,double x,double eta,double *FL,double *GL,
 	delete [] gcp;
 }
 
-
-
-#endif

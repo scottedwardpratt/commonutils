@@ -1,4 +1,4 @@
-#include "log.h"
+#include "msu_commonutils/log.h"
 
 string CLog::logfilename="";
 bool CLog::INTERACTIVE=true;

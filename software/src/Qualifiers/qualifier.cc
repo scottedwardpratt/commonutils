@@ -1,7 +1,5 @@
-#ifndef __QUALIFIER_CC__
-#define __QUALIFIER_CC__
-#include "qualifier.h"
-#include "parametermap.h"
+#include "msu_commonutils/qualifier.h"
+#include "msu_commonutils/parametermap.h"
 
 using namespace std;
 
@@ -68,5 +66,3 @@ void CQualifiers::Print(){
 		}
 	}
 }
-
-#endif

@@ -1,6 +1,4 @@
-#ifndef __INCLUDE_YLMARRAY
-#define __INCLUDE_YLMARRAY
-#include "arrays.h"
+#include "msu_commonutils/arrays.h"
 
 // MEMBER FUNCTIONS of CYlmArray
 
@@ -94,5 +92,3 @@ void CYlmArray::PrintArrayFixedIR(int ir){
   }
   printf("_________________________________________\n");
 }
-
-#endif

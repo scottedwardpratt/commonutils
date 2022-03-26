@@ -1,32 +1,33 @@
-#include "randy.h"
-#include "constants.h"
+#include "msu_commonutils/randy.h"
+#include "msu_commonutils/constants.h"
 
 using namespace std;
 
-CRandy::CRandy(int iseed){
+Crandy::Crandy(int iseed){
 	seed=iseed;
 	mt.seed(seed);
-
+	netprob=0.0;
+	threshold=-log(ran());
 }
 
-void CRandy::reset(int iseed){
+void Crandy::reset(int iseed){
 	seed=iseed;
 	mt.seed(seed);
 }
 
-double CRandy::ran(){
+double Crandy::ran(){
 	return ranu(mt);
 }
 
-double CRandy::ran_exp(){
+double Crandy::ran_exp(){
 	return -log(ran());
 }
 
-double CRandy::ran_gauss(void){
+double Crandy::ran_gauss(void){
 	return rang(mt);
 }
 
-void CRandy::ran_gauss2(double &ra,double &rb){
+void Crandy::ran_gauss2(double &ra,double &rb){
 	double x,y,r2,r,c,s;
 	TRY_AGAIN:
 	x=1.0-2.0*ran();
@@ -40,7 +41,7 @@ void CRandy::ran_gauss2(double &ra,double &rb){
 	rb=(s/c)*ra;
 }
 
-void CRandy::generate_boltzmann_alt(double mass,double T,FourVector &p){
+void Crandy::generate_boltzmann_alt(double mass,double T,FourVector &p){
 	//const double PI=4.0*atan(1.0);
 	double r1,r2,r3,r0,I1,I2,I3,Itot;
 	double pmag,E,ctheta,stheta,phi,K;
@@ -80,7 +81,7 @@ void CRandy::generate_boltzmann_alt(double mass,double T,FourVector &p){
 	p[0]=E;
 }
 
-void CRandy::generate_boltzmann(double mass,double T,FourVector &p){
+void Crandy::generate_boltzmann(double mass,double T,FourVector &p){
 	//const double PI=4.0*atan(1.0);
 	double r1,r2,r3,a,b,c;
 	double pmag,ctheta,stheta,phi;
@@ -104,11 +105,11 @@ void CRandy::generate_boltzmann(double mass,double T,FourVector &p){
 	else generate_boltzmann_alt(mass,T,p);
 }
 
-int CRandy::poisson(){
+int Crandy::poisson(){
 	return ranp(mt);
 }
 
-void CRandy::set_mean(double mu){
+void Crandy::set_mean(double mu){
 	ranp=std::poisson_distribution<int>(mu);
 
 	//ranp.reset(mu);
@@ -116,13 +117,28 @@ void CRandy::set_mean(double mu){
 	//ranp.param(param_t{mu});
 }
 
-double CRandy::ran_lorentzian(){  //
+double Crandy::ran_lorentzian(){  //
 	double r=ran();
 	return 0.5*(tan(PI*(r-0.5)));
 }
 
-double CRandy::ran_invcosh(){ // return propto 1/cosh(x)
+double Crandy::ran_invcosh(){ // return propto 1/cosh(x)
 	double r=ran();
 	return asinh(tan(PI*(r-0.5)));
 }
 
+void Crandy::increase_threshold(){
+	threshold-=log(ran());
+}
+
+void Crandy::increment_netprob(double delN){
+	netprob+=delN;
+}
+
+bool Crandy::test_threshold(double delprob){
+	if((delprob+netprob)<threshold){
+		return false;
+	}
+	else
+		return true;
+}

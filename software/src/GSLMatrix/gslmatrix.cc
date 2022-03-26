@@ -1,6 +1,4 @@
-#ifndef __GSL_MATRIX_CC__
-#define __GSL_MATRIX_CC__
-#include "gslmatrix.h"
+#include "msu_commonutils/gslmatrix.h"
 
 
 CGSLMatrix_Real::CGSLMatrix_Real(int dimset){
@@ -383,4 +381,3 @@ void CGSLMatrix_Real::Cholesky_Invert(double **A,double **Ainv){
 	**/
 }
 
-#endif

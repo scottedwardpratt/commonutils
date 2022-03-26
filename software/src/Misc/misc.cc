@@ -1,8 +1,7 @@
-#ifndef __INCLUDE_MISC_CC
-#define __INCLUDE_MISC_CC
-#include "misc.h"
-#include "constants.h"
-#include "sf.h"
+#include "msu_commonutils/misc.h"
+#include "msu_commonutils/constants.h"
+#include "msu_commonutils/sf.h"
+#include "msu_commonutils/log.h"
 
 bool Misc::comparestrings(char *s1,char *s2){
 	int length1,length2,ic;
@@ -28,9 +27,10 @@ double Misc::DotProduct(FourVector &p,FourVector &q){
 
 double Misc::triangle(double m0,double m1,double m2){
 	double answer,m0sq,m1sq,m2sq;
+	char message[100];
 	if(m0<m1+m2) {
-		cout << "Disaster with triangle"<<endl;
-		exit(1);
+		sprintf(message,"Disaster with triangle, M=%g, m1=%g, m2=%g\n",m0,m1,m2);
+		CLog::Fatal(message);
 	}
 	m0sq=m0*m0;m1sq=m1*m1;m2sq=m2*m2;
 	answer=(m0sq*m0sq+m1sq*m1sq+m2sq*m2sq-2.0*(m0sq*m1sq+m0sq*m2sq+m1sq*m2sq))/(4.0*m0sq);
@@ -57,25 +57,8 @@ double Misc::GetQinv(FourVector &pa,FourVector &pb){
 	double answer;
 	answer=0;
 	answer=pow(pa[1]-pb[1],2)+pow(pa[2]-pb[2],2)+pow(pa[3]-pb[3],2)-pow(pa[0]-pb[0],2);
-	if(answer<0.0){
-		cout << "DISASTER with GetQinv, wrong sign, = " <<answer << endl;
-		exit(1);
-	}
 	return sqrt(answer);
 }
-
-/*
-double Misc::GetQinv(FourVector &pa, FourVector &pb){
-	double answer;
-	answer=0;
-	answer=pow(pa[1]-pb[1],2)+pow(pa[2]-pb[2],2)+pow(pa[3]-pb[3],2)-pow(pa[0]-pb[0],2);
-	if(answer<0.0){
-		cout << "DISASTER with GetQinv, wrong sign, = " <<answer << endl;
-		exit(1);
-	}
-	return sqrt(answer);
-}
-*/
 
 complex<double> Misc::cexp(complex<double> z){
 	return exp(real(z))*ceiphi(imag(z));
@@ -761,5 +744,3 @@ double &qside,double &qlong,double &deleta,double &dely,double &delphi){
 	if(delphi>180.0)
 		delphi=360.0-delphi;
 }
-
-#endif

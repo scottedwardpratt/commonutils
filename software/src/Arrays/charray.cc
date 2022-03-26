@@ -1,13 +1,11 @@
-#ifndef __INCLUDE_CHARRAY_CC
-#define __INCLUDE_CHARRAY_CC
-#include "arrays.h"
-#include "sf.h"
-#include "parametermap.h"
-#include "randy.h"
+#include "msu_commonutils/arrays.h"
+#include "msu_commonutils/sf.h"
+#include "msu_commonutils/parametermap.h"
+#include "msu_commonutils/randy.h"
 
 using namespace std;
 
-CRandy *CCHArray::randy=NULL;
+Crandy *CCHArray::randy=NULL;
 CCHCalc *CCHArray::chcalc=NULL;
 
 CCHArray::CCHArray(int LMAXset,int NRADIALset,double RADSTEPset){
@@ -732,7 +730,7 @@ double CCHArray::AExpand(double x,double y,double z){
 }
 
 void CCHArray::RandomInit(int iseed){
-	randy=new CRandy(iseed);
+	randy=new Crandy(iseed);
 }
 
 void CCHArray::Randomize(double mag,int ir){
@@ -884,5 +882,3 @@ void CCHArray::PrintMoments(){
 	printf("%10.3e %10.3e %10.3e\n",m2[1][0],m2[1][1],m2[1][2]);
 	printf("%10.3e %10.3e %10.3e\n",m2[2][0],m2[2][1],m2[2][2]);
 }
-
-#endif

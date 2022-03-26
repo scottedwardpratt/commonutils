@@ -1,12 +1,10 @@
-#ifndef __INCLUDE_3D_CC
-#define __INCLUDE_3D_CC
-#include "arrays.h"
-#include "parametermap.h"
-#include "randy.h"
+#include "msu_commonutils/arrays.h"
+#include "msu_commonutils/parametermap.h"
+#include "msu_commonutils/randy.h"
 
 using namespace std;
 
-CRandy *C3DArray::randy=NULL;
+Crandy *C3DArray::randy=NULL;
 
 C3DArray::C3DArray(string arrayparsfilename){
 	// Default Pars
@@ -506,7 +504,7 @@ double C3DArray::GetBiggest(){
 
 void C3DArray::Randomize(double c){
 	int isx,isy,isz,ix,iy,iz,nsx,nsy,nsz;
-	if(randy==NULL) randy=new CRandy(-1234);
+	if(randy==NULL) randy=new Crandy(-1234);
 	nsx=nsy=nsz=2;
 	if(XSYM) nsx=1;
 	if(YSYM) nsy=1;
@@ -529,7 +527,7 @@ void C3DArray::Randomize(double c){
 
 void C3DArray::RandomizeGaussian(double c){
 	int isx,isy,isz,ix,iy,iz,nsx,nsy,nsz;
-	if(randy==NULL) randy=new CRandy(-1234);
+	if(randy==NULL) randy=new Crandy(-1234);
 	nsx=nsy=nsz=2;
 	if(XSYM) nsx=1;
 	if(YSYM) nsy=1;
@@ -827,4 +825,3 @@ void C3DArray::PrintMoments(){
 	}
 	printf("xyz_rms = (%g,%g,%g)\n",sqrt(r2[0][0]),sqrt(r2[1][1]),sqrt(r2[2][2]));
 }
-#endif

@@ -1,6 +1,4 @@
-#ifndef __INCLUDE_CHCALC_CC__
-#define __INCLUDE_CHCALC_CC__
-#include "sf.h"
+#include "msu_commonutils/sf.h"
 
 using namespace std;
 
@@ -308,5 +306,3 @@ double CCHCalc::GetOverlap0(int lx,int ly,int lz,
     return sum*prefactor;
   }
 }
-
-#endif

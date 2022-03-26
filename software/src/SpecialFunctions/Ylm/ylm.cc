@@ -1,7 +1,5 @@
-#ifndef SCOTTUTILS_YLM_CC__
-#define SCOTTUTILS_YLM_CC__
-#include "sf.h"
-#include "misc.h"
+#include "msu_commonutils/sf.h"
+#include "msu_commonutils/misc.h"
 
 using namespace std;
 
@@ -47,5 +45,3 @@ double SpherHarmonics::ReYlm(int ell, int m, double x,double y,double z){
 double SpherHarmonics::ImYlm(int ell, int m, double x,double y,double z){
 	return imag(SpherHarmonics::Ylm(ell,m,x,y,z));
 }
-
-#endif

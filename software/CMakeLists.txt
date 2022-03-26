@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 set(GITHOME_MSU $ENV{GITHOME_MSU})
+
 set(CXX $ENV{CXX})
-project(commonutils CXX C)
+project(msu_commonutils CXX C)
 message("CXX is ${CXX}   GITHOME_MSU=${GITHOME_MSU}")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -O3 -fpie")
@@ -12,15 +13,12 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 find_package(GSL 1.15 REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED)
-include_directories(SYSTEM ${GSL_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIR})
+include_directories(SYSTEM ${GSL_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIR} include)
 message("Includes: ${GSL_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIR}")
 
-file(GLOB commonutils_src ./src/**/*.cc ./src/SpecialFunctions/*/*.cc)
+file(GLOB msu_commonutils_src ./src/*/*.cc ./src/*/*/*.cc)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "lib")
-add_library(commonutils STATIC ${commonutils_src})
-target_link_libraries(commonutils ${GSL_LIBRARY} ${GSL_CBLAS_LIBRARY} ${Boost_LIBRARIES})
-message("Libraries: ${GSL_LIBRARY} ${GSL_CBLAS_LIBRARY}")
-
-include_directories(include ${GITHOME_MSU}/hp/alice/software/commonutils/include  ${GITHOME_MSU}/hp/alice/software/b3d2/include)
+add_library(msu_commonutils STATIC ${msu_commonutils_src})
+target_link_libraries(msu_commonutils ${GSL_LIBRARY} ${GSL_CBLAS_LIBRARY} ${Boost_LIBRARIES})
 
 

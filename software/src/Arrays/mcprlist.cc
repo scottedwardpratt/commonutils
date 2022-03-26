@@ -1,6 +1,4 @@
-#ifndef __mclist_cc__
-#define __mclist_cc__
-#include "arrays.h"
+#include "msu_commonutils/arrays.h"
 
 CMCPRList::CMCPRList(int nmcset){
   int i;
@@ -129,5 +127,3 @@ void CMCPRList::PrintMoments(double Rmax){
 		printf("\n");
 	}
 }
-
-#endif

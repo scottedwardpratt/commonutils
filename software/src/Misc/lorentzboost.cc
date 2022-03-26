@@ -1,8 +1,6 @@
-#ifndef __INCLUDE_LORENTZBOOST_CC
-#define __INCLUDE_LORENTZBOOST_CC
-#include "misc.h"
-#include "constants.h"
-#include "sf.h"
+#include "msu_commonutils/misc.h"
+#include "msu_commonutils/constants.h"
+#include "msu_commonutils/sf.h"
 
 void Misc::lorentz(FourVector &u,FourVector &p,FourVector &pprime){
 	int alpha;
@@ -94,6 +92,3 @@ void Misc::Boost(FourVector &u,FourVector &p){
 		p[mu]=-((udotp+ndotp)/(1.0+udotn))*u[mu]+2*ndotp*u[mu]+p[mu];
 	}
 }
-
-
-#endif

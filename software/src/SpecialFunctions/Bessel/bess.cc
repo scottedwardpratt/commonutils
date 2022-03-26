@@ -1,6 +1,4 @@
-#ifndef __INCLUDE_GSLBESS_CC__
-#define __INCLUDE_GSLBESS_CC__
-#include "sf.h"
+#include "msu_commonutils/sf.h"
 
 using namespace std;
 
@@ -187,5 +185,3 @@ void Bessel::CalcJN_imag(int ell,double x,double &jl,double &nl,double &jlprime,
 	jlprime=jprime[ell];
 	nlprime=nprime[ell];
 }
-
-#endif
