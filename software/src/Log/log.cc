@@ -1,6 +1,6 @@
 #include "msu_commonutils/log.h"
 
-string CLog::logfilename="";
+string CLog::logfilename="log.txt";
 bool CLog::INTERACTIVE=true;
 FILE *CLog::fptr=NULL;
 
