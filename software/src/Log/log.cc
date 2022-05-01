@@ -54,6 +54,16 @@ void CLog::Info(string &message){
 	}
 }
 
+void CLog::Info(string message){
+	if(INTERACTIVE){
+		printf("%s",message.c_str());
+	}
+	else{
+		fprintf(fptr,"%s",message.c_str());
+		fflush(fptr);
+	}
+}
+
 void CLog::Info(char *message){
 	if(INTERACTIVE){
 		printf("%s",message);

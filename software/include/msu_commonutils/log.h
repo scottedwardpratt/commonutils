@@ -16,6 +16,7 @@ public:
 	static void Init(string &logfilename_in);
 	static void Fatal(string &message);
 	static void Info(string &message);
+	static void Info(string message);
 	static void Fatal(char *message);
 	static void Info(char *message);
 };

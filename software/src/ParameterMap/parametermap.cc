@@ -1,4 +1,5 @@
 #include "msu_commonutils/parametermap.h" 
+#include "msu_commonutils/log.h" 
 
 //Returns an integer from the map.
 int CparameterMap::getI(string key,int def)
@@ -39,18 +40,16 @@ bool CparameterMap::getB(string key,bool def)
   itr = this->find(key); 
   if(itr!=this->end()){
     pstring=itr->second;
-    //printf("pstring=%s\n",pstring.c_str());
     char tf[10];
     strncpy(tf,pstring.c_str(),1);
-    //printf("tf=%s\n",tf);
     if(tf[0]=='t' || tf[0]=='1') param=true;
     else if(tf[0]=='f' || tf[0]=='0') param=false;
     else{
-      printf("parameterMap::getB(), boolean parameter with key %s read in with value %s, set to false\n",key.c_str(),pstring.c_str());
+      sprintf(message,"parameterMap::getB(), boolean parameter with key %s read in with value %s, set to false\n",key.c_str(),pstring.c_str());
+      CLog::Info(message);
     }
   }
   else{
-    //printf("string %s not defined\n",key.c_str());
     param = def;
   }
   return param;
@@ -180,7 +179,6 @@ void CparameterMap::set(string key,bool val)
 void CparameterMap::set(string key,char* val)
 {
   string sval(val);
-	printf("key= %s\n",key.c_str());
   set(key,sval);
 }
 //Adds a string to the map.
@@ -228,8 +226,8 @@ void CparameterMap::ReadParsFromFile(const char *filename){
 	stringstream ss;
   parsfile.open(filename);
   if(! parsfile){
-    printf("attempting to read non-existent parameter file %s\n",filename);
-    exit(1);
+    sprintf(message,"ReadParsFromFile:: attempting to read non-existent parameter file %s\n",filename);
+    CLog::Fatal(message);
   }
 	
   while(!parsfile.eof()){

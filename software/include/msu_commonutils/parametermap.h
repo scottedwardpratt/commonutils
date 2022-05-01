@@ -50,6 +50,7 @@ public:
   void ReadParsFromFile(const char *filename);
   void ReadParsFromFile(string filename);
   void PrintPars();
+  char *message;
 };
 
 #endif
