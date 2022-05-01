@@ -3,6 +3,6 @@
 using namespace std;
 
 int main(){
-	CLog::Info("YIPPEE!!!!! We made it all the way through!\n");
+	CLog::Info("YIPPEE!!!!! We made it all the way through!\n"+to_string(456)+"bye bye bye\n");
 	return 0;
 }
