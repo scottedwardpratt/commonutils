@@ -24,7 +24,7 @@ void CLog::Fatal(string message){
 		printf("%s",message.c_str());
 	}
 	else{
-		fprintf(fptr,"FATAL error: %s\n",logfilename.c_str());
+		fprintf(fptr,"FATAL error:\n");
 		fprintf(fptr,"%s",message.c_str());
 		fflush(fptr);
 	}
