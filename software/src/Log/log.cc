@@ -20,7 +20,7 @@ void CLog::Init(char *logfilename_in){
 
 void CLog::Fatal(string message){
 	if(INTERACTIVE){
-		printf("FATAL error:\n %s\n",logfilename.c_str());
+		printf("FATAL error:\n");
 		printf("%s",message.c_str());
 	}
 	else{
