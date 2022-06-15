@@ -13,6 +13,8 @@ Crandy::Crandy(int iseed){
 void Crandy::reset(int iseed){
 	seed=iseed;
 	mt.seed(seed);
+	netprob=0.0;
+	threshold=-log(ran());
 }
 
 double Crandy::ran(){
