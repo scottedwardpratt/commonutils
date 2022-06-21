@@ -77,6 +77,8 @@ void CDecay_NBody::SetMasses(int nbodies_set,vector<double> masses_set){
 	qbar=sqrt(KEtot*masses[0])/double(nbodies);
 	w=GetW();
 	wmax=w*maxfactor;
+	qsum.clear();
+	Msum.clear();
 }
 
 // this is experimental
@@ -132,6 +134,9 @@ void CDecay_NBody::SetMasses_Trial(int nbodies_set,vector<double> masses_set){
 	w=GetW();
 	qbar=sqrt(KEtot*masses[0])/double(nbodies);
 	wmax=w*maxfactor/qbar;
+	KE.clear();
+	qsum.clear();
+	Msum.clear();
 }
 
 
@@ -200,6 +205,8 @@ void CDecay_NBody::ChooseMsum(){
 		Ntry+=1;
 	}while(w<randy->ran());
 	Nsuccess+=1;
+	KE.clear();
+	x.clear();
 	//printf("In ChooseMsum: Msum[nbodies-1]=%g =? %g=masses[0]\n",Msum[nbodies-1],masses[0]);
 }
 
