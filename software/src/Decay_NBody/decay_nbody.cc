@@ -1,4 +1,5 @@
 #include "msu_commonutils/decay_nbody.h"
+#include "msu_commonutils/log.h"
 
 void CDecay_NBody::SetMasses2(double Mset,double m1set,double m2set){
 	M=Mset; m1=m1set; m2=m2set;
@@ -48,26 +49,31 @@ void CDecay_NBody::SetMasses4(double Mset,double m1set,double m2set,double m3set
 	wmax4=w*maxfactor4;
 }
 
-void CDecay_NBody::SetMasses(int nbodies_set,vector<double> masses_set){
+void CDecay_NBody::SetMasses(int nbodies_set,vector<double> &masses_set){
 	double w;
 	int i;
 	nbodies=nbodies_set;
-	masses=masses_set;
+	if(int(masses.size())<=nbodies){
+		masses.resize(nbodies+1);
+	}
+	for(i=0;i<=nbodies;i++)
+		masses[i]=masses_set[i];
+	//masses=masses_set;
 	//maxfactor=1.0;
 	maxfactor=1.0+0.028*(nbodies-2.0)+0.41*tanh((nbodies-2.0)/2.8);
-	qsum.resize(nbodies);
-	if(int(masses.size())<=nbodies){
-		printf("nbodies is incorrect for CDecay_NBody::SetMasses\n");
-		exit(1);
+	if(nbodies>int(Msum.size())){
+		Msum.resize(nbodies);
 	}
-	Msum.resize(nbodies);
+	if(nbodies>int(qsum.size())){
+		qsum.resize(nbodies);
+	}
+	
 	KEtot=masses[0];
 	for(i=1;i<=nbodies;i++){
 		KEtot-=masses[i];
 	}
 	if(KEtot<0.0){
-		printf("masses don't add up in CDecay_NBody::SetMasses\n");
-		exit(1);
+		CLog::Fatal("masses don't add up in CDecay_NBody::SetMasses\n");
 	}
 	Msum[0]=masses[1];
 	for(i=1;i<nbodies;i++){
@@ -77,31 +83,28 @@ void CDecay_NBody::SetMasses(int nbodies_set,vector<double> masses_set){
 	qbar=sqrt(KEtot*masses[0])/double(nbodies);
 	w=GetW();
 	wmax=w*maxfactor;
-	qsum.clear();
-	Msum.clear();
 }
 
 // this is experimental
-void CDecay_NBody::SetMasses_Trial(int nbodies_set,vector<double> masses_set){
+void CDecay_NBody::SetMasses_Trial(int nbodies_set,vector<double> &masses_set){
 	double w;
 	int i;
 	//vector<double> maxfactor={1.0,1.0,1.0,1.03,1.04,1.05,1.06,1.06,}
 	nbodies=nbodies_set;
-	masses=masses_set;
 	maxfactor=1.0;
 	qsum.resize(nbodies);
 	if(int(masses.size())<=nbodies){
-		printf("nbodies is incorrect for CDecay_NBody::SetMasses\n");
-		exit(1);
+		masses.resize(nbodies+1);
 	}
+	for(i=0;i<=nbodies;i++)
+		masses[i]=masses_set[i];
 	Msum.resize(nbodies);
 	KEtot=masses[0];
 	for(i=1;i<=nbodies;i++){
 		KEtot-=masses[i];
 	}
 	if(KEtot<0.0){
-		printf("masses don't add up in CDecay_NBody::SetMasses\n");
-		exit(1);
+		CLog::Fatal("masses don't add up in CDecay_NBody::SetMasses_Trial\n");
 	}
 	
 	double mu,msum,KEsum,epsilon;
@@ -135,8 +138,6 @@ void CDecay_NBody::SetMasses_Trial(int nbodies_set,vector<double> masses_set){
 	qbar=sqrt(KEtot*masses[0])/double(nbodies);
 	wmax=w*maxfactor/qbar;
 	KE.clear();
-	qsum.clear();
-	Msum.clear();
 }
 
 

@@ -1,3 +1,6 @@
+#ifndef __MSU_DECAY_NBODY_H__
+#define __MSU_DECAY_NBODY_H__
+
 #include <cstdlib>
 #include <cmath>
 #include <cstdio>
@@ -28,8 +31,8 @@ public:
 	void SetMasses2(double M,double m1,double m2);
 	void SetMasses3(double M,double m1,double m2,double m3);
 	void SetMasses4(double M,double m1,double m2,double m3,double m4);
-	void SetMasses(int nbodies,vector<double> masses_set);
-	void SetMasses_Trial(int nbodies,vector<double> masses_set);
+	void SetMasses(int nbodies,vector<double> &masses_set);
+	void SetMasses_Trial(int nbodies,vector<double> &masses_set);
 	//
 	void GenerateMomenta2(FourVector &p1,FourVector &p2);
 	void GenerateMomenta3(FourVector &p1,FourVector &p2,FourVector &p3);
@@ -53,3 +56,5 @@ private:
 	void CompleteMomenta(vector<FourVector> &p);
 
 };
+
+#endif
