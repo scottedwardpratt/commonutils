@@ -40,8 +40,8 @@ class CCHArray;
 class CHydroBalance;
 class CHydroMesh;
 class CHyperMesh;
-class CEoS;
-class CCharge;
+class CHBEoS;
+class CHBCharge;
 class CdecayInfo;
 class CresList;
 class CresInfo;
@@ -77,18 +77,18 @@ typedef pair<long int, CresInfo*> CresInfoPair;
 typedef pair<long int, CdecayInfo*> CdecayInfoPair;
 typedef pair<double,CresInfo*> CresMassPair;
 typedef vector<CbranchInfo *> CbranchList; //gives branchlist name
-typedef multimap<int,CCharge* > CChargeMap;
-typedef pair<int,CCharge* > CChargePair;
+typedef multimap<int,CHBCharge* > CHBChargeMap;
+typedef pair<int,CHBCharge* > CHBChargePair;
 //typedef multimap<int,CPart* > CPartMap;
 //typedef pair<int,CPart* > CPartPair;
-typedef multimap<int,CCharge* > mapic;
+typedef multimap<int,CHBCharge* > mapic;
 //typedef multimap<int,CPart* > mapip;
 typedef array<double,4> FourVector;
 //typedef double FourVector[4];
 typedef double FourTensor[4][4];
 typedef multimap<double,CAction *> CActionMap;
 typedef pair<double,CAction*> CActionPair;
-typedef pair<int,CCharge* > pairic;
-typedef pair<int,CCharge* > pairip;
+typedef pair<int,CHBCharge* > pairic;
+typedef pair<int,CHBCharge* > pairip;
 
 #endif
