@@ -744,3 +744,13 @@ double &qside,double &qlong,double &deleta,double &dely,double &delphi){
 	if(delphi>180.0)
 		delphi=360.0-delphi;
 }
+
+void Misc::CalcDCA(FourVector &p,FourVector &r,FourVector &dca){
+	int alpha;
+	double pdotr,p2;
+	p2=p[1]*p[1]+p[2]*p[2]+p[3]*p[3];
+	pdotr=(p[1]*r[1]+p[2]*r[2]+p[3]*r[3])/p2;
+	for(alpha=1;alpha<4;alpha++)
+		dca[alpha]=(r[alpha]-pdotr*p[alpha])/1.0E13;
+	dca[0]=sqrt(dca[1]*dca[1]+dca[2]*dca[2]+dca[3]*dca[3]);
+}

@@ -66,6 +66,7 @@ namespace Misc{
 	bool file_exists( const char* file_name );
 	bool file_exists( const std::string& file_name );
 	double mod(double x, double y);
+	void CalcDCA(FourVector &p,FourVector &x,FourVector &dca);
 
 };
 
