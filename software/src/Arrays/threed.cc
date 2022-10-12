@@ -1,6 +1,7 @@
 #include "msu_commonutils/arrays.h"
 #include "msu_commonutils/parametermap.h"
 #include "msu_commonutils/randy.h"
+#include "msu_commonutils/log.h"
 
 using namespace std;
 
@@ -38,7 +39,7 @@ void C3DArray::ReadPars(string arrayparsfilename){
 	YSYM=bool(apars.getB("YSYM",YSYM));
 	ZSYM=bool(apars.getB("ZSYM",ZSYM));
 	if(apars.getI("NXYZMAX",0) != 0){
-		NXMAX=NYMAX=NZMAX=apars.getI("NXYZMAX",0);
+		NXMAX=NYMAX=NZMAX=apars.getI("NXYZMAX",25);
 	}
 }
 
@@ -88,7 +89,8 @@ void C3DArray::CreateArray(){
 					F[isx][ix][isy][iy]=new double *[nsz];
 					for(isz=0;isz<nsz;isz++){
 						F[isx][ix][isy][iy][isz]=new double[NZMAX];
-						for(iz=0;iz<NZMAX;iz++) F[isx][ix][isy][iy][isz][iz]=0.0;
+						for(iz=0;iz<NZMAX;iz++)
+							F[isx][ix][isy][iy][isz][iz]=0.0;
 					}
 				}
 			}
@@ -285,9 +287,9 @@ void C3DArray::SetElement(double x,double y,double z,double value){
 			iz=int(floor(fabs(z)/DELY));
 			if(iz<NZMAX){
 				isx=isy=isz=0;
-				if(XSYM && x<-1.0E-15) isx=1;
-				if(YSYM && y<-1.0E-15) isy=1;
-				if(ZSYM && z<-1.0E-15) isz=1;
+				if(!XSYM && x<-1.0E-15) isx=1;
+				if(!YSYM && y<-1.0E-15) isy=1;
+				if(!ZSYM && z<-1.0E-15) isz=1;
 				F[isx][ix][isy][iy][isz][iz]=value;
 			}
 		}
@@ -300,12 +302,15 @@ void C3DArray::IncrementElement(double x,double y,double z,double value){
 	if(ix<NXMAX){
 		iy=int(floor(fabs(y)/DELY));
 		if(iy<NYMAX){
-			iz=int(floor(fabs(z)/DELY));
+			iz=int(floor(fabs(z)/DELZ));
 			if(iz<NZMAX){
 				isx=isy=isz=0;
-				if(XSYM && x<-1.0E-15) isx=1;
-				if(YSYM && y<-1.0E-15) isy=1;
-				if(ZSYM && z<-1.0E-15) isz=1;
+				if(!XSYM && x<-1.0E-10)
+					isx=1;
+				if(!YSYM && y<-1.0E-10)
+					isy=1;
+				if(!ZSYM && z<-1.0E-10)
+					isz=1;
 				F[isx][ix][isy][iy][isz][iz]+=value;
 			}
 		}
@@ -824,4 +829,40 @@ void C3DArray::PrintMoments(){
 		printf("\n");
 	}
 	printf("xyz_rms = (%g,%g,%g)\n",sqrt(r2[0][0]),sqrt(r2[1][1]),sqrt(r2[2][2]));
+}
+
+void C3DArray::DivideByArray(C3DArray *threed_denom){
+	int isx,ix,isy,iy,isz,iz;
+	int nsx=2,nsy=2,nsz=2;
+	if(XSYM) nsx=1;
+	if(YSYM) nsy=1;
+	if(ZSYM) nsz=1;
+	double r[4];
+	for(isx=0;isx<nsx;isx++){
+		for(ix=0;ix<NXMAX;ix++){
+			r[0]=(ix+0.5)*DELX;
+			if(isx==1)
+				r[0]=-r[0];
+			for(isy=0;isy<nsy;isy++){
+				for(iy=0;iy<NYMAX;iy++){
+					r[1]=(iy+0.5)*DELY;
+					if(isy==1)
+						r[1]=-r[1];
+					for(isz=0;isz<nsz;isz++){
+						for(iz=0;iz<NZMAX;iz++){
+							r[2]=(iz+0.5)*DELZ;
+							if(isz==0)
+								r[2]=-r[2];
+							if(fabs(threed_denom->F[isx][ix][isy][iy][isz][iz])>1.0E-8)
+								F[isx][ix][isy][iy][isz][iz]=F[isx][ix][isy][iy][isz][iz]/threed_denom->F[isx][ix][isy][iy][isz][iz];
+							else{
+								//CLog::Info("Denom zero for C3DArray::DivideByArray\n");
+								F[isx][ix][isy][iy][isz][iz]=1.0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }

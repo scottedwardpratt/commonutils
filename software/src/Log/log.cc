@@ -7,9 +7,12 @@ FILE *CLog::fptr=NULL;
 using namespace std;
 
 void CLog::Init(string &logfilename_in){
-	INTERACTIVE=false;
+	INTERACTIVE=true;
 	logfilename=logfilename_in;
-	fptr=fopen(logfilename.c_str(),"w");
+	if(logfilename!="INTERACTIVE"){
+		INTERACTIVE=false;
+		fptr=fopen(logfilename.c_str(),"w");
+	}
 }
 
 void CLog::Init(char *logfilename_in){
