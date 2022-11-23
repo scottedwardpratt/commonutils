@@ -352,15 +352,17 @@ void C3DArray::PrintPars(){
 void C3DArray::WriteArray(string dirname){
 	int isx,isy,isz,nsx,nsy,nsz,ix,iy,iz;
 	FILE *fptr;
-	char shellcommand[120];
+	char shellcommand[160];
 
-	sprintf(shellcommand,"mkdir -p %s",dirname.c_str());
+	snprintf(shellcommand,sizeof(shellcommand),"mkdir -p %s",dirname.c_str());
+	printf("a: shellcommand=%s\n",shellcommand);
 	system(shellcommand);
-	sprintf(shellcommand,"rm -f %s/*.tmp",dirname.c_str());
+	snprintf(shellcommand,sizeof(shellcommand),"rm -f %s/*.tmp",dirname.c_str());
+	printf("b: shellcommand=%s\n",shellcommand);
 	system(shellcommand);
 
 	char filename[160];
-	sprintf(filename,"%s/3Darraypars.dat",dirname.c_str());
+	snprintf(filename,sizeof(filename),"%s/3Darraypars.dat",dirname.c_str());
 	fptr=fopen(filename,"w");
 	fprintf(fptr,"bool XSYM %d\n",XSYM);
 	fprintf(fptr,"bool YSYM %d\n",YSYM);
@@ -378,7 +380,7 @@ void C3DArray::WriteArray(string dirname){
 	if(ZSYM) nsz=1;
 	for(ix=0;ix<NXMAX;ix++){
 		for(iy=0;iy<NYMAX;iy++){
-			sprintf(filename,"%s/ix%d_iy%d.tmp",
+			snprintf(filename,sizeof(filename),"%s/ix%d_iy%d.tmp",
 				dirname.c_str(),ix,iy);
 			fptr=fopen(filename,"w");
 			for(iz=0;iz<NZMAX;iz++){
@@ -450,7 +452,7 @@ void C3DArray::ReadArray(string dirname){
 	XSYMb=XSYM; YSYMb=YSYM; ZSYMb=ZSYM;
 	FILE *fptr;
 	char filename[160];
-	sprintf(filename,"%s/3Darraypars.dat",dirname.c_str());
+	snprintf(filename,sizeof(filename),"%s/3Darraypars.dat",dirname.c_str());
 	ReadPars(filename);
 	if(NXMAXb!=NXMAX || NYMAXb!=NYMAX|| NZMAXb!=NZMAX
 		|| fabs(DELXb-DELX)>1.0E-10 || fabs(DELYb-DELY)>1.0E-10
@@ -466,7 +468,7 @@ void C3DArray::ReadArray(string dirname){
 	if(ZSYM) nsz=1;
 	for(ix=0;ix<NXMAX;ix++){
 		for(iy=0;iy<NYMAX;iy++){
-			sprintf(filename,"%s/ix%d_iy%d.tmp",dirname.c_str(),ix,iy);
+			snprintf(filename,sizeof(filename),"%s/ix%d_iy%d.tmp",dirname.c_str(),ix,iy);
 			fptr=fopen(filename,"r");
 			for(iz=0;iz<NZMAX;iz++){
 				for(isz=0;isz<nsz;isz++){

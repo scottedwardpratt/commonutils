@@ -45,7 +45,7 @@ bool CparameterMap::getB(string key,bool def)
     if(tf[0]=='t' || tf[0]=='1') param=true;
     else if(tf[0]=='f' || tf[0]=='0') param=false;
     else{
-      sprintf(message,"parameterMap::getB(), boolean parameter with key %s read in with value %s, set to false\n",key.c_str(),pstring.c_str());
+      snprintf(message,sizeof(message),"parameterMap::getB(), boolean parameter with key %s read in with value %s, set to false\n",key.c_str(),pstring.c_str());
       CLog::Info(message);
     }
   }
@@ -226,7 +226,7 @@ void CparameterMap::ReadParsFromFile(const char *filename){
 	stringstream ss;
   parsfile.open(filename);
   if(! parsfile){
-    sprintf(message,"ReadParsFromFile:: attempting to read non-existent parameter file %s\n",filename);
+    snprintf(message,sizeof(message),"ReadParsFromFile:: attempting to read non-existent parameter file %s\n",filename);
     CLog::Fatal(message);
   }
 	

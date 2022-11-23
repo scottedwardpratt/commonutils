@@ -29,7 +29,7 @@ double Misc::triangle(double m0,double m1,double m2){
 	double answer,m0sq,m1sq,m2sq;
 	char message[100];
 	if(m0<m1+m2) {
-		sprintf(message,"Disaster with triangle, M=%g, m1=%g, m2=%g\n",m0,m1,m2);
+		snprintf(message,sizeof(message),"Disaster with triangle, M=%g, m1=%g, m2=%g\n",m0,m1,m2);
 		CLog::Fatal(message);
 	}
 	m0sq=m0*m0;m1sq=m1*m1;m2sq=m2*m2;
