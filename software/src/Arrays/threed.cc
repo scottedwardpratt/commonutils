@@ -355,10 +355,8 @@ void C3DArray::WriteArray(string dirname){
 	char shellcommand[160];
 
 	snprintf(shellcommand,sizeof(shellcommand),"mkdir -p %s",dirname.c_str());
-	printf("a: shellcommand=%s\n",shellcommand);
 	system(shellcommand);
 	snprintf(shellcommand,sizeof(shellcommand),"rm -f %s/*.tmp",dirname.c_str());
-	printf("b: shellcommand=%s\n",shellcommand);
 	system(shellcommand);
 
 	char filename[160];
