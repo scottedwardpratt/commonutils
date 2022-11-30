@@ -243,6 +243,7 @@ void CparameterMap::ReadParsFromFile(const char *filename){
 			else
 				key=type;
 			
+			
 			//these lines allow for vector data to be read in, in the form of a set of delimited values.
 			//this line sets value to be a string that is the rest of the line.
       value = ss.str().substr(ss.tellg());
