@@ -4,9 +4,9 @@ set(GITHOME_MSU $ENV{GITHOME_MSU})
 set(CXX $ENV{CXX})
 message("CXX is ${CXX}   GITHOME_MSU=${GITHOME_MSU}")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -O3 -fpie")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -fpie")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wextra -Wmissing-declarations -Wpointer-arith -Wshadow -Wuninitialized -Winit-self -Wundef -Wcast-align -Wformat=2 -Wold-style-cast -Werror=switch -std=c++17 -mfpmath=sse")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall  -std=c++17 -mfpmath=sse")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall  -std=c++17")
 message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
