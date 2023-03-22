@@ -17,6 +17,7 @@ public:
 	//static void Fatal(string &message);
 	static void Info(string message);
 	static void Fatal(string message);
+	static const int CHARLENGTH=300;
 	//static void Info(string &message);
 	//static void Fatal(char *message);
 	//static void Info(char *message);
