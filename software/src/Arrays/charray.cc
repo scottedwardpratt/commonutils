@@ -357,13 +357,13 @@ void CCHArray::WriteAX(string dirname){
 	int ir,lx,ly,lz;
 	FILE *fptr;
 	
-	snprintf(shellcommand,sizeof(shellcommand),"mkdir -p %s",dirname.c_str());
+	snprintf(shellcommand,200,"mkdir -p %s",dirname.c_str());
 	system(shellcommand);
 	
 	for(lx=0;lx<=1;lx+=dlx){
 		for(ly=0;ly<=LMAX-lx;ly+=dly){
 			for(lz=0;lz<=LMAX-lx-ly;lz+=dlz){
-				snprintf(filename,sizeof(filename),"%s/lx%d_ly%d_lz%d.tmp",dirname.c_str(),lx,ly,lz);
+				snprintf(filename,160,"%s/lx%d_ly%d_lz%d.tmp",dirname.c_str(),lx,ly,lz);
 				fptr=fopen(filename,"w");
 				fprintf(fptr,"%d %g\n",NRADIAL,RADSTEP);
 				for(ir=0;ir<NRADIAL;ir++){
@@ -376,16 +376,16 @@ void CCHArray::WriteAX(string dirname){
 }
 
 void CCHArray::ReadAX(string dirname){
-	char filename[120],shellcommand[300];
+	char filename[160],shellcommand[300];
 	int ir,lx,ly,lz,NRADIALread;
 	double aa,RADSTEPread;
 	FILE *fptr;
 	for(lx=0;lx<=1;lx+=dlx){
 		for(ly=0;ly<=LMAX-lx;ly+=dly){
 			for(lz=0;lz<=LMAX-lx-ly;lz+=dlz){
-				snprintf(filename,sizeof(filename),"%s/lx%d_ly%d_lz%d.tmp",dirname.c_str(),lx,ly,lz);
+				snprintf(filename,160,"%s/lx%d_ly%d_lz%d.tmp",dirname.c_str(),lx,ly,lz);
 				//printf("READING: L=(%d,%d,%d), filename=%s\n",lx,ly,lz,filename);
-				snprintf(shellcommand,sizeof(shellcommand),
+				snprintf(shellcommand,300,
 					"if [ ! -e %s ]; then echo Reading Error: %s does not exist; fi",filename,filename);
 				system(shellcommand);
 				fptr=fopen(filename,"r");
@@ -408,7 +408,7 @@ void CCHArray::ReadAX(string dirname){
 }
 
 void CCHArray::ReadAllA(string dirname){
-	char filename[120],shellcommand[300];
+	char filename[160],shellcommand[300];
 	int ir,lx,ly,lz,NRADIALread;
 	double aa,RADSTEPread;
 	FILE *fptr;
@@ -416,9 +416,9 @@ void CCHArray::ReadAllA(string dirname){
 	for(lx=0;lx<=LMAX;lx+=dlx){
 		for(ly=0;ly<=LMAX-lx;ly+=dly){
 			for(lz=0;lz<=LMAX-lx-ly;lz+=dlz){
-				snprintf(filename,sizeof(filename),"%s/lx%d_ly%d_lz%d.tmp",dirname.c_str(),lx,ly,lz);
+				snprintf(filename,160,"%s/lx%d_ly%d_lz%d.tmp",dirname.c_str(),lx,ly,lz);
 				printf("READING: L=(%d,%d,%d), filename=%s\n",lx,ly,lz,filename);
-				snprintf(shellcommand,sizeof(shellcommand),
+				snprintf(shellcommand,300,
 					"if [ ! -e %s ]; then echo Reading Error: %s, does not exist; fi",filename,filename);
 				system(shellcommand);
 				fptr=fopen(filename,"r");
