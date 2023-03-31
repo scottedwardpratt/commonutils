@@ -73,7 +73,10 @@ void CDecay_NBody::SetMasses(int nbodies_set,vector<double> &masses_set){
 		KEtot-=masses[i];
 	}
 	if(KEtot<0.0){
-		CLog::Fatal("masses don't add up in CDecay_NBody::SetMasses\n");
+		for(i=0;i<=nbodies;i++)
+			CLog::Info(to_string(masses[i])+" ");
+		CLog::Info("\n");
+		CLog::Fatal("masses don't add up in CDecay_NBody::SetMasses, KEtot="+to_string(KEtot)+"\n");
 	}
 	Msum[0]=masses[1];
 	for(i=1;i<nbodies;i++){
@@ -104,7 +107,10 @@ void CDecay_NBody::SetMasses_Trial(int nbodies_set,vector<double> &masses_set){
 		KEtot-=masses[i];
 	}
 	if(KEtot<0.0){
-		CLog::Fatal("masses don't add up in CDecay_NBody::SetMasses_Trial\n");
+		for(i=0;i<=nbodies;i++)
+			CLog::Info(to_string(masses[i])+" ");
+		CLog::Info("\n");
+		CLog::Fatal("masses don't add up in CDecay_NBody::SetMasses, KEtot="+to_string(KEtot)+"\n");
 	}
 	
 	double mu,msum,KEsum,epsilon;
