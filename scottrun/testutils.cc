@@ -8,36 +8,21 @@ using namespace std;
 int main(){
 	Crandy *randy=new Crandy(1234);
 	CDecay_NBody *decay_nbody=new CDecay_NBody(randy);
-	long long unsigned int ntry=1000000,itry;
-	double M,m1,m2,m3,m4;
-	int ibody,nbodies;
-	FourVector p1,p2,p3,p4;
-	double pxbar=0.0;
-	for(itry=0;itry<ntry;itry++){
-		M=1000.0+500.0*randy->ran();
-		m1=100.0;
-		m2=200.0;
-		m3=300.0;
-		m4=400.0;
-		decay_nbody->SetMasses4(M,m1,m2,m3,m4);
-		decay_nbody->GenerateMomenta4(p1,p2,p3,p4);
-		pxbar+=p1[1];
-	}
-	printf("pxbar=%g\n",pxbar/double(ntry));
-	ntry*=1000;
-	nbodies=8;
-	pxbar=0.0;
+	long long unsigned int ntry=10,itry;
+	int ibody,nbodies=5;
+	vector<double> masses(nbodies+1);
 	vector<FourVector> p(nbodies);
-	vector<double> mass(nbodies+1);
+	masses[0]=100.0;
+	for(ibody=0;ibody<nbodies;ibody++)
+		masses[ibody+1]=0.0;
+	decay_nbody->SetMasses(nbodies,masses);
 	for(itry=0;itry<ntry;itry++){
-		for(ibody=1;ibody<=nbodies;ibody++)
-			mass[ibody]=100.0;
-		mass[0]=1000.0;
-		decay_nbody->SetMasses(nbodies,mass);
 		decay_nbody->GenerateMomenta(p);
-		for(ibody=0;ibody<nbodies;ibody++)
-			pxbar+=p[ibody][1];
+		//decay_nbody->GenerateMomenta2(p[0],p[1]);
+		printf("itry=%lld\n",itry);
+		for(ibody=0;ibody<nbodies;ibody++){
+			printf("(%g,%g,%g,%g)\n",p[ibody][0],p[ibody][1],p[ibody][2],p[ibody][3]);
+		}
 	}
-	printf("pxbar=%g\n",pxbar/double(ntry));
 	return 0;
 }

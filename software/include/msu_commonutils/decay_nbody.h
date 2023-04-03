@@ -25,6 +25,7 @@ public:
 	double wmax,maxfactor,KEtot,qbar;
 	vector<double> Msum,masses,qsum;
 	int nbodies;
+	bool allmassless;
 	long long int Ntry,Nsuccess;
 	Crandy *randy;
 	// These functions also set weights
@@ -38,6 +39,7 @@ public:
 	void GenerateMomenta3(FourVector &p1,FourVector &p2,FourVector &p3);
 	void GenerateMomenta4(FourVector &p1,FourVector &p2,FourVector &p3,FourVector &p4);
 	void GenerateMomenta(vector<FourVector> &p);
+	void GenerateMomentaAllMassless(vector<FourVector> &p);
 
 private:
 	// These calculate weights for specific M12 (M34) and divide by wmax. They also return q12 (q13) and Qmag

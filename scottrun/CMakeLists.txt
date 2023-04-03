@@ -26,4 +26,4 @@ add_dependencies(testutils extern_msu_commonutils)
 
 find_library(${GITHOME_MSU}/commonutils/software/lib msu_commonutils)
 
-target_link_libraries(testutils msu_commonutils ${GSL_LIBRARY} ${GSL_CBLAS_LIBRARY} ${EIGEN3_LIBRARY})
+target_link_libraries(testutils msu_commonutils ${GITHOME_MSU}/commonutils/software/lib/libmsu_commonutils.a ${GSL_LIBRARY} ${GSL_CBLAS_LIBRARY} ${EIGEN3_LIBRARY})

@@ -35,6 +35,7 @@ void CDecay_NBody::SetMasses3(double Mset,double m1set,double m2set,double m3set
 	w=GetW3();
 	wmax3=w*maxfactor3;
 }
+
 void CDecay_NBody::SetMasses4(double Mset,double m1set,double m2set,double m3set,double m4set){
 	const double fracguess=0.35;
 	maxfactor4=1.27;  // empircally determined
@@ -50,42 +51,58 @@ void CDecay_NBody::SetMasses4(double Mset,double m1set,double m2set,double m3set
 }
 
 void CDecay_NBody::SetMasses(int nbodies_set,vector<double> &masses_set){
-	double w;
-	int i;
 	nbodies=nbodies_set;
-	if(int(masses.size())<=nbodies){
-		masses.resize(nbodies+1);
+	if(nbodies==2){
+		SetMasses2(masses_set[0],masses_set[1],masses_set[2]);
 	}
-	for(i=0;i<=nbodies;i++)
-		masses[i]=masses_set[i];
-	//masses=masses_set;
-	//maxfactor=1.0;
-	maxfactor=1.0+0.028*(nbodies-2.0)+0.41*tanh((nbodies-2.0)/2.8);
-	if(nbodies>int(Msum.size())){
-		Msum.resize(nbodies);
+	else if(nbodies==3){
+		SetMasses3(masses_set[0],masses_set[1],masses_set[2],masses_set[3]);
 	}
-	if(nbodies>int(qsum.size())){
-		qsum.resize(nbodies);
+	else if(nbodies==4){
+		SetMasses4(masses_set[0],masses_set[1],masses_set[2],masses_set[3],masses_set[4]);
 	}
+	else{
+		double w;
+		int i;
+		allmassless=true;
+		if(int(masses.size())<=nbodies){
+			masses.resize(nbodies+1);
+		}
+		for(i=0;i<=nbodies;i++){
+			masses[i]=masses_set[i];
+			if(i>0 && masses[i]>1.0E-10)
+				allmassless=false;
+		}
+		M=masses[0];
+		//masses=masses_set;
+		//maxfactor=1.0;
+		maxfactor=1.0+0.028*(nbodies-2.0)+0.41*tanh((nbodies-2.0)/2.8);
+		if(nbodies>int(Msum.size())){
+			Msum.resize(nbodies);
+		}
+		if(nbodies>int(qsum.size())){
+			qsum.resize(nbodies);
+		}
 	
-	KEtot=masses[0];
-	for(i=1;i<=nbodies;i++){
-		KEtot-=masses[i];
+		KEtot=masses[0];
+		for(i=1;i<=nbodies;i++){
+			KEtot-=masses[i];
+		}
+		if(KEtot<0.0){
+			for(i=0;i<=nbodies;i++)
+				CLog::Info(to_string(masses[i])+" ");
+			CLog::Info("\n");
+			CLog::Fatal("masses don't add up in CDecay_NBody::SetMasses, KEtot="+to_string(KEtot)+"\n");
+		}
+		Msum[0]=masses[1];
+		for(i=1;i<nbodies;i++){
+			Msum[i]=Msum[i-1]+masses[i+1]+KEtot/double(nbodies-1);
+		}
+		wmax=1.0;
+		qbar=sqrt(KEtot*masses[0])/double(nbodies);
+		w=GetW();
+		wmax=w*maxfactor;
 	}
-	if(KEtot<0.0){
-		for(i=0;i<=nbodies;i++)
-			CLog::Info(to_string(masses[i])+" ");
-		CLog::Info("\n");
-		CLog::Fatal("masses don't add up in CDecay_NBody::SetMasses, KEtot="+to_string(KEtot)+"\n");
-	}
-	Msum[0]=masses[1];
-	for(i=1;i<nbodies;i++){
-		Msum[i]=Msum[i-1]+masses[i+1]+KEtot/double(nbodies-1);
-	}
-	wmax=1.0;
-	qbar=sqrt(KEtot*masses[0])/double(nbodies);
-	w=GetW();
-	wmax=w*maxfactor;
 }
 
 // this is experimental
@@ -137,15 +154,12 @@ void CDecay_NBody::SetMasses_Trial(int nbodies_set,vector<double> &masses_set){
 		Msum[i]=Msum[i-1]+masses[i+1]+KE[i];
 	}
 	
-	
-	//printf("Msum[nbodies-1]=%g\n",Msum[nbodies-1]);
 	wmax=1.0;
 	w=GetW();
 	qbar=sqrt(KEtot*masses[0])/double(nbodies);
 	wmax=w*maxfactor/qbar;
 	KE.clear();
 }
-
 
 void CDecay_NBody::ChooseM12(){
 	double KEtotmax,KE12,w;
@@ -157,7 +171,7 @@ void CDecay_NBody::ChooseM12(){
 		if(w>wmaxmax3)
 			wmaxmax3=w;
 		if(w>1.0){
-			printf("YIKES!!! w=%g exceeded 1.0, may need to increase wmaxfactor3\n",w);
+			CLog::Info("YIKES!!! w="+to_string(w)+" exceeded 1.0, may need to increase wmaxfactor3\n");
 		}
 		Ntry+=1;
 	}while(w<randy->ran());
@@ -178,7 +192,7 @@ void CDecay_NBody::ChooseM12M34(){
 		if(w>wmaxmax4)
 			wmaxmax4=w;
 		if(w>1.0){
-			printf("YIKES!!! w exceeded 1.0, may need to increase wmaxfactor4\n");
+			CLog::Info("YIKES!!! w="+to_string(w)+" exceeded 1.0, may need to increase wmaxfactor4\n");
 		}
 		Ntry+=1;
 	}while(w<randy->ran());
@@ -214,7 +228,6 @@ void CDecay_NBody::ChooseMsum(){
 	Nsuccess+=1;
 	KE.clear();
 	x.clear();
-	//printf("In ChooseMsum: Msum[nbodies-1]=%g =? %g=masses[0]\n",Msum[nbodies-1],masses[0]);
 }
 
 void CDecay_NBody::CompleteMomenta3(FourVector &p1,FourVector &p2,FourVector &p3){
@@ -344,11 +357,26 @@ void CDecay_NBody::GenerateMomenta4(FourVector &p1,FourVector &p2,FourVector &p3
 
 void CDecay_NBody::GenerateMomenta(vector<FourVector> &p){
 	if(int(p.size())<nbodies){
-		printf("danger: not enough fourvectors in array for CDecay_NBody\n");
-		exit(1);
+		CLog::Fatal("danger: not enough fourvectors in array for CDecay_NBody\n");
 	}
-	ChooseMsum();
-	CompleteMomenta(p);
+	if(nbodies==2){
+		GenerateMomenta2(p[0],p[1]);
+	}
+	else if(nbodies==3){
+		GenerateMomenta3(p[0],p[1],p[2]);
+	}
+	else if(nbodies==4){
+		GenerateMomenta4(p[0],p[1],p[2],p[3]);
+	}
+	else{
+		if(allmassless){
+			GenerateMomentaAllMassless(p);
+		}
+		else{
+			ChooseMsum();
+			CompleteMomenta(p);
+		}
+	}
 }
 
 void CDecay_NBody::CompleteMomenta(vector<FourVector> &p){
@@ -377,14 +405,38 @@ void CDecay_NBody::CompleteMomenta(vector<FourVector> &p){
 		for(j=0;j<i;j++){
 			Misc::Boost(u,p[j]);
 		}
-		/*
-		FourVector Ptest;
-		for(alpha=0;alpha<4;alpha++)
-			Ptest[alpha]=0.0;
-		for(j=0;j<=i;j++){
-			Ptest[alpha]+=p[j][alpha];
-		}
-		printf("Ptest=(%g,%g,%g,%g)\n",Ptest[0],Ptest[1],Ptest[2],Ptest[3]);
-		*/
+
 	}
 }
+
+void CDecay_NBody::GenerateMomentaAllMassless(vector<FourVector> &p){
+	int ibody,alpha;
+	double T=100.0;
+	double M=masses[0],Mtot,factor;
+	FourVector ptot,u;
+	for(alpha=0;alpha<4;alpha++)
+		ptot[alpha]=0.0;
+	for(ibody=0;ibody<nbodies;ibody++){
+		randy->generate_boltzmann(0.0,T,p[ibody]);
+		for(alpha=0;alpha<4;alpha++)
+			ptot[alpha]+=p[ibody][alpha];
+	}
+	Mtot=sqrt(ptot[0]*ptot[0]-ptot[1]*ptot[1]-ptot[2]*ptot[2]-ptot[3]*ptot[3]);
+	for(alpha=0;alpha<4;alpha++)
+		u[alpha]=ptot[alpha]/Mtot;
+	for(alpha=0;alpha<4;alpha++)
+		ptot[alpha]=0.0;
+	for(ibody=0;ibody<nbodies;ibody++){
+		Misc::BoostToCM(u,p[ibody],p[ibody]);
+		for(alpha=0;alpha<4;alpha++)
+			ptot[alpha]+=p[ibody][alpha];
+	}
+	factor=M/ptot[0];
+	for(ibody=0;ibody<nbodies;ibody++){
+		for(alpha=0;alpha<4;alpha++)
+			p[ibody][alpha]=p[ibody][alpha]*factor;
+	}
+}
+	
+	
+	
