@@ -27,7 +27,7 @@ public:
 	bool test_threshold(double delprob);
 
 	
-private:
+	//private:
 	//std::mt19937 mt;   // 32 bit
 	std::mt19937_64 mt;   // 64 bit
 	std::uniform_real_distribution<double> ranu;
