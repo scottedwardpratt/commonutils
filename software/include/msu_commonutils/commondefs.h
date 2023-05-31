@@ -55,7 +55,7 @@ class CB3DCell;
 class Crandy;
 class CparameterMap;
 class CBalanceArrays;
-class CSampler;
+class Csampler;
 class CLocalInfo;
 class CAction;
 class CRegenerate;
