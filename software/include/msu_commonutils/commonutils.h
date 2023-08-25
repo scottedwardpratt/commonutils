@@ -12,11 +12,6 @@
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 #include <gsl/gsl_sf.h>
-//#include <eigen3/Eigen/Core>
-
-//typedef double FourVector[4];
-//typedef Eigen::Matrix<double,4,4> FourTensor;
-//typedef Eigen::Matrix<double,4,1> FourVector;
 
 #include "arrays.h"
 #include "commondefs.h"

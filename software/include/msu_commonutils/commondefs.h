@@ -31,7 +31,6 @@
 #include <gsl/gsl_poly.h>
 #include <gsl/gsl_linalg.h>
 #include <gsl/gsl_blas.h>
-#include <Eigen/Dense>
 
 using namespace std;
 
