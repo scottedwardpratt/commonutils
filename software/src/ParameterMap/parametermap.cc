@@ -242,6 +242,9 @@ void CparameterMap::ReadParsFromFile(const char *filename){
 				ss >> key;
 			else
 				key=type;
+			key.erase(std::remove(key.begin(), key.end(), ' '), key.end());
+			key.erase(std::remove(key.begin(), key.end(), '\t'), key.end());
+			
 			
 			
 			//these lines allow for vector data to be read in, in the form of a set of delimited values.
@@ -255,8 +258,13 @@ void CparameterMap::ReadParsFromFile(const char *filename){
         exit(1);
       }
       size_t end = value.find_last_not_of(" \t");
+			//size_t newend = value.find_first_of("#");
+			//if((newend) > beginning && (newend<end))
+			//	end=newend-1;
       size_t range = end-beginning + 1;
       value = value.substr(beginning, range);
+			//value.erase(std::remove(value.begin(), value.end(), ' '), value.end());
+			//value.erase(std::remove(value.begin(), value.end(), '\t'), value.end());
 			
 			// cout << "Storing:" << endl;
 			// cout << "Key:" << key << endl;
