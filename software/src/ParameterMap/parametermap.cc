@@ -62,7 +62,8 @@ string CparameterMap::getS(string key,string def)
   map<string,string>::iterator itr; 
   itr = this->find(key);  //find the value associated with string "key" in the parameter map
   if(itr!=this->end()){
-    param = itr->second;
+    stringstream ss(itr->second); 
+    ss>>param; 
   }else{
     param = def;  //default to second string if not found
   }
