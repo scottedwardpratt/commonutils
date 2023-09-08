@@ -24,6 +24,7 @@
 #include <map>
 #include <list>
 #include <unordered_map>
+#include <Eigen/Dense>
 #include <gsl/gsl_sf.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_complex.h>

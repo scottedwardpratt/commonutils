@@ -267,9 +267,9 @@ void CparameterMap::ReadParsFromFile(const char *filename){
 			//value.erase(std::remove(value.begin(), value.end(), ' '), value.end());
 			//value.erase(std::remove(value.begin(), value.end(), '\t'), value.end());
 			
-			// cout << "Storing:" << endl;
-			// cout << "Key:" << key << endl;
-			// cout << "Value:" << value << endl;
+			//cout << "Storing:" << endl;
+			//cout << "Key:" << key << endl;
+			//cout << "Value:" << value << endl;
       set(key,value);
       ss.flush();
     }
@@ -286,6 +286,7 @@ void CparameterMap::ReadParsFromFile(const char *filename){
 }
 
 void CparameterMap::ReadParsFromFile(string filename){
+	printf("filename string=%s\n",filename.c_str());
   ReadParsFromFile(filename.c_str());
 }
 
