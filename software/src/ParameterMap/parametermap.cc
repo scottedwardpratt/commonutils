@@ -286,7 +286,6 @@ void CparameterMap::ReadParsFromFile(const char *filename){
 }
 
 void CparameterMap::ReadParsFromFile(string filename){
-	printf("filename string=%s\n",filename.c_str());
   ReadParsFromFile(filename.c_str());
 }
 
