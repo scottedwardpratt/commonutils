@@ -1,4 +1,5 @@
 #include "msu_commonutils/arrays.h"
+using namespace NMSUPratt;
 
 // MEMBER FUNCTIONS of CYlmArray
 

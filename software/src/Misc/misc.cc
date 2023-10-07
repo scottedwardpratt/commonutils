@@ -2,6 +2,7 @@
 #include "msu_commonutils/constants.h"
 #include "msu_commonutils/sf.h"
 #include "msu_commonutils/log.h"
+using namespace NMSUPratt;
 
 bool Misc::comparestrings(char *s1,char *s2){
 	int length1,length2,ic;

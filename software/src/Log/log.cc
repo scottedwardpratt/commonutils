@@ -1,4 +1,5 @@
 #include "msu_commonutils/log.h"
+using namespace NMSUPratt;
 
 string CLog::logfilename="log.txt";
 bool CLog::INTERACTIVE=true;

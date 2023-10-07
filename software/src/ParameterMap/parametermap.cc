@@ -1,5 +1,6 @@
 #include "msu_commonutils/parametermap.h" 
-#include "msu_commonutils/log.h" 
+#include "msu_commonutils/log.h"
+using namespace NMSUPratt;
 
 //Returns an integer from the map.
 int CparameterMap::getI(string key,int def)

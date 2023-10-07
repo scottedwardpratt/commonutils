@@ -2,6 +2,7 @@
 #include "msu_commonutils/parametermap.h"
 
 using namespace std;
+using namespace NMSUPratt;
 
 void CQualifiers::Read(string qfilename){
 	CQualifier *qptr;

@@ -3,6 +3,7 @@
 #include "msu_commonutils/decay_nbody.h"
 #include "msu_commonutils/log.h"
 using namespace std;
+using namespace NMSUPratt;
 
 void CDecay_NBody::SetMasses2(double Mset,double m1set,double m2set){
 	M=Mset; m1=m1set; m2=m2set;

@@ -34,61 +34,63 @@
 #include <gsl/gsl_blas.h>
 
 using namespace std;
+namespace NMSUPratt{
 
-class CCHCalc;
-class CCHArray;
-class CHydroBalance;
-class CHydroMesh;
-class CHyperMesh;
-class CHBEoS;
-class CHBCharge;
-class CdecayInfo;
-class CresList;
-class CresInfo;
-class CbranchInfo;
-class CHyperElement;
-class CBalance;
-class CAcceptance;
-class CAction;
-class CB3D;
-class CB3DCell;
-class Crandy;
-class CparameterMap;
-class CBalanceArrays;
-class Csampler;
-class CLocalInfo;
-class CAction;
-class CRegenerate;
-class CSEInfo;
-class CHYDROtoB3D;
-class CMCList;
-class CKernel;
-class C3DArray;
-class CWaveFunction;
-class CSourceCalc;
-class CKernelWF;
-class CMSUPart;
-class CdecayInfo;
+	class CCHCalc;
+	class CCHArray;
+	class CHydroBalance;
+	class CHydroMesh;
+	class CHyperMesh;
+	class CHBEoS;
+	class CHBCharge;
+	class CdecayInfo;
+	class CresList;
+	class CresInfo;
+	class CbranchInfo;
+	class CHyperElement;
+	class CBalance;
+	class CAcceptance;
+	class CAction;
+	class CB3D;
+	class CB3DCell;
+	class Crandy;
+	class CparameterMap;
+	class CBalanceArrays;
+	class Csampler;
+	class CLocalInfo;
+	class CAction;
+	class CRegenerate;
+	class CSEInfo;
+	class CHYDROtoB3D;
+	class CMCList;
+	class CKernel;
+	class C3DArray;
+	class CWaveFunction;
+	class CSourceCalc;
+	class CKernelWF;
+	class CMSUPart;
+	class CdecayInfo;
 
-typedef multimap<long int,CresInfo *> CresInfoMap;
-typedef multimap<double,CresInfo *> CresMassMap;
-typedef unordered_map<int,CdecayInfo *> CdecayInfoMap;
-typedef pair<long int, CresInfo*> CresInfoPair;
-typedef pair<long int, CdecayInfo*> CdecayInfoPair;
-typedef pair<double,CresInfo*> CresMassPair;
-typedef vector<CbranchInfo *> CbranchList; //gives branchlist name
-typedef multimap<int,CHBCharge* > CHBChargeMap;
-typedef pair<int,CHBCharge* > CHBChargePair;
-//typedef multimap<int,CPart* > CPartMap;
-//typedef pair<int,CPart* > CPartPair;
-typedef multimap<int,CHBCharge* > mapic;
-//typedef multimap<int,CPart* > mapip;
-typedef array<double,4> FourVector;
-//typedef double FourVector[4];
-typedef double FourTensor[4][4];
-typedef multimap<double,CAction *> CActionMap;
-typedef pair<double,CAction*> CActionPair;
-typedef pair<int,CHBCharge* > pairic;
-typedef pair<int,CHBCharge* > pairip;
+	typedef multimap<long int,CresInfo *> CresInfoMap;
+	typedef multimap<double,CresInfo *> CresMassMap;
+	typedef unordered_map<int,CdecayInfo *> CdecayInfoMap;
+	typedef pair<long int, CresInfo*> CresInfoPair;
+	typedef pair<long int, CdecayInfo*> CdecayInfoPair;
+	typedef pair<double,CresInfo*> CresMassPair;
+	typedef vector<CbranchInfo *> CbranchList; //gives branchlist name
+	typedef multimap<int,CHBCharge* > CHBChargeMap;
+	typedef pair<int,CHBCharge* > CHBChargePair;
+	//typedef multimap<int,CPart* > CPartMap;
+	//typedef pair<int,CPart* > CPartPair;
+	typedef multimap<int,CHBCharge* > mapic;
+	//typedef multimap<int,CPart* > mapip;
+	typedef array<double,4> FourVector;
+	//typedef double FourVector[4];
+	typedef double FourTensor[4][4];
+	typedef multimap<double,CAction *> CActionMap;
+	typedef pair<double,CAction*> CActionPair;
+	typedef pair<int,CHBCharge* > pairic;
+	typedef pair<int,CHBCharge* > pairip;
 
+}
 #endif

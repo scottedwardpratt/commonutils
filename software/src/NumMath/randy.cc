@@ -1,5 +1,6 @@
 #include "msu_commonutils/randy.h"
 #include "msu_commonutils/constants.h"
+using namespace NMSUPratt;
 
 using namespace std;
 

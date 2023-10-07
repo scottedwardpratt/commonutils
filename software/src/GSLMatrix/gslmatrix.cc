@@ -1,5 +1,5 @@
 #include "msu_commonutils/gslmatrix.h"
-
+using namespace NMSUPratt;
 
 CGSLMatrix_Real::CGSLMatrix_Real(int dimset){
 	dim=dimset;
