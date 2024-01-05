@@ -4,6 +4,7 @@
 #include "msu_commonutils/randy.h"
 
 using namespace std;
+using namespace NMSUPratt;
 
 Crandy *CCHArray::randy=NULL;
 CCHCalc *CCHArray::chcalc=NULL;
@@ -376,7 +377,7 @@ void CCHArray::WriteAX(string dirname){
 }
 
 void CCHArray::ReadAX(string dirname){
-	char filename[160],shellcommand[300];
+	char filename[160],shellcommand[320];
 	int ir,lx,ly,lz,NRADIALread;
 	double aa,RADSTEPread;
 	FILE *fptr;
@@ -385,7 +386,7 @@ void CCHArray::ReadAX(string dirname){
 			for(lz=0;lz<=LMAX-lx-ly;lz+=dlz){
 				snprintf(filename,160,"%s/lx%d_ly%d_lz%d.tmp",dirname.c_str(),lx,ly,lz);
 				//printf("READING: L=(%d,%d,%d), filename=%s\n",lx,ly,lz,filename);
-				snprintf(shellcommand,300,
+				snprintf(shellcommand,320,
 					"if [ ! -e %s ]; then echo Reading Error: %s does not exist; fi",filename,filename);
 				system(shellcommand);
 				fptr=fopen(filename,"r");
@@ -408,7 +409,7 @@ void CCHArray::ReadAX(string dirname){
 }
 
 void CCHArray::ReadAllA(string dirname){
-	char filename[160],shellcommand[300];
+	char filename[160],shellcommand[320];
 	int ir,lx,ly,lz,NRADIALread;
 	double aa,RADSTEPread;
 	FILE *fptr;
@@ -418,7 +419,7 @@ void CCHArray::ReadAllA(string dirname){
 			for(lz=0;lz<=LMAX-lx-ly;lz+=dlz){
 				snprintf(filename,160,"%s/lx%d_ly%d_lz%d.tmp",dirname.c_str(),lx,ly,lz);
 				printf("READING: L=(%d,%d,%d), filename=%s\n",lx,ly,lz,filename);
-				snprintf(shellcommand,300,
+				snprintf(shellcommand,320,
 					"if [ ! -e %s ]; then echo Reading Error: %s, does not exist; fi",filename,filename);
 				system(shellcommand);
 				fptr=fopen(filename,"r");

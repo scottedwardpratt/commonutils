@@ -1,6 +1,7 @@
 #include "msu_commonutils/misc.h"
 #include "msu_commonutils/constants.h"
 #include "msu_commonutils/sf.h"
+using namespace NMSUPratt;
 
 void Misc::lorentz(FourVector &u,FourVector &p,FourVector &pprime){
 	int alpha;

@@ -4,6 +4,7 @@
 #include "msu_commonutils/log.h"
 
 using namespace std;
+using namespace NMSUPratt;
 
 Crandy *C3DArray::randy=NULL;
 

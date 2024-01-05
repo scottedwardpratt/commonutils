@@ -1,6 +1,7 @@
 #include "msu_commonutils/arrays.h"
 #include "msu_commonutils/sf.h"
 using namespace std;
+using namespace NMSUPratt;
 
 void ArrayCalc::CalcAExpArrayFromMArray(CCHArray *M,int irm,CCHArray *A,int ira){
 	int dlx=1,dly=1,dlz=1;

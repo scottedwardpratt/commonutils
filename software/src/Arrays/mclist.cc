@@ -1,5 +1,7 @@
 #include "msu_commonutils/arrays.h"
 
+using namespace NMSUPratt;
+
 CMCList::CMCList(int nmcset){
   int i;
   nmc=nmcset;

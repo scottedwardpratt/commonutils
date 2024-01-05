@@ -1,5 +1,6 @@
 #include "msu_commonutils/parametermap.h" 
-#include "msu_commonutils/log.h" 
+#include "msu_commonutils/log.h"
+using namespace NMSUPratt;
 
 //Returns an integer from the map.
 int CparameterMap::getI(string key,int def)
@@ -62,7 +63,8 @@ string CparameterMap::getS(string key,string def)
   map<string,string>::iterator itr; 
   itr = this->find(key);  //find the value associated with string "key" in the parameter map
   if(itr!=this->end()){
-    param = itr->second;
+    stringstream ss(itr->second); 
+    ss>>param; 
   }else{
     param = def;  //default to second string if not found
   }
@@ -242,6 +244,9 @@ void CparameterMap::ReadParsFromFile(const char *filename){
 				ss >> key;
 			else
 				key=type;
+			key.erase(std::remove(key.begin(), key.end(), ' '), key.end());
+			key.erase(std::remove(key.begin(), key.end(), '\t'), key.end());
+			
 			
 			
 			//these lines allow for vector data to be read in, in the form of a set of delimited values.
@@ -255,12 +260,17 @@ void CparameterMap::ReadParsFromFile(const char *filename){
         exit(1);
       }
       size_t end = value.find_last_not_of(" \t");
+			//size_t newend = value.find_first_of("#");
+			//if((newend) > beginning && (newend<end))
+			//	end=newend-1;
       size_t range = end-beginning + 1;
       value = value.substr(beginning, range);
+			//value.erase(std::remove(value.begin(), value.end(), ' '), value.end());
+			//value.erase(std::remove(value.begin(), value.end(), '\t'), value.end());
 			
-			// cout << "Storing:" << endl;
-			// cout << "Key:" << key << endl;
-			// cout << "Value:" << value << endl;
+			//cout << "Storing:" << endl;
+			//cout << "Key:" << key << endl;
+			//cout << "Value:" << value << endl;
       set(key,value);
       ss.flush();
     }
