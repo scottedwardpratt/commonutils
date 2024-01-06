@@ -1,7 +1,6 @@
 #include "msu_commonutils/sf.h"
-using namespace NMSUPratt;
-
 using namespace std;
+using namespace NMSUPratt;
 
 double Bessel::J0(double x){
 	return gsl_sf_bessel_J0(x);
