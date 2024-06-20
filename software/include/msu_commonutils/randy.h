@@ -21,7 +21,11 @@ namespace NMSUPratt{
 		void generate_boltzmann(double mass,double T,FourVector &p);
 		void generate_boltzmann_alt(double mass,double T,FourVector &p);
 		int poisson();
+		int N_binomial;
+		double p_binomial;
+		int binomial();
 		void set_mean(double mu);  // For Poisson Dist
+		void set_binomial(int N,double p);
 
 		void increase_threshold();
 		void increment_netprob(double delN);
@@ -34,6 +38,7 @@ namespace NMSUPratt{
 		std::uniform_real_distribution<double> ranu;
 		std::normal_distribution<double> rang;
 		std::poisson_distribution<int> ranp;
+		std::binomial_distribution<> bindist;
 	};
 }
 

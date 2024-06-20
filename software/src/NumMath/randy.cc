@@ -145,3 +145,13 @@ bool Crandy::test_threshold(double delprob){
 	else
 		return true;
 }
+
+void Crandy::set_binomial(int N,double p){
+	N_binomial=N;
+	p_binomial=p;
+	bindist=std::binomial_distribution(N,p);
+}
+
+int Crandy::binomial(){
+	return bindist(mt);
+}
