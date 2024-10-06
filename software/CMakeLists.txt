@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
-project(msu_commonutils)
+project(msu_commonutils CXX)
 set(CXX $ENV{CXX})
 message("CXX is ${CXX}")
 

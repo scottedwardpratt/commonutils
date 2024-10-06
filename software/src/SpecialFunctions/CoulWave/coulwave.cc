@@ -25,20 +25,20 @@ void CoulWave::GetFG(int L,double x,double eta,double *FL,double *GL){
 	*FL=fc[L]*exp(expF);
 	*GL=gc[L]*exp(expG);
 	/*
-#ifndef NO_GSLCOULWAVE_BUG
+	#ifndef NO_GSLCOULWAVE_BUG
 	if(x>2.0){
-		phase=atan2(*GL,*FL);
-		phase=phase+x-0.5*PI*(L+1)+sigma-eta*log(2.0*x);
-		phase+=0.5*double(L*(L+1))/x;
-		phase=phase-2.0*PI*floor(0.5*phase/PI);
-		if(phase>PI) phase=phase-2.0*PI;
-		if(fabs(phase)>2.0){
-			*FL=-*FL;
-			*GL=-*GL;
-			//printf("L=%d, x=%6.3f, phase=%10.6f, sigma=%g\n",L,x,phase,sigma);
-		}
+	phase=atan2(*GL,*FL);
+	phase=phase+x-0.5*PI*(L+1)+sigma-eta*log(2.0*x);
+	phase+=0.5*double(L*(L+1))/x;
+	phase=phase-2.0*PI*floor(0.5*phase/PI);
+	if(phase>PI) phase=phase-2.0*PI;
+	if(fabs(phase)>2.0){
+	*FL=-*FL;
+	*GL=-*GL;
+	//printf("L=%d, x=%6.3f, phase=%10.6f, sigma=%g\n",L,x,phase,sigma);
 	}
-#endif */
+	}
+	#endif */
 	delete [] fc;
 	delete [] gc;
 }
@@ -54,7 +54,7 @@ void CoulWave::GetFGprime(int L,double x,double eta,double *FL,double *GL,double
 	gcp=new double[k+1];
 	// This calculates fc and gc arrays for indices L to L+k  
 	gsl_sf_coulomb_wave_FGp_array(L,k,eta,x,fc,fcp,gc,gcp,
-		&expF,&expG);
+	&expF,&expG);
 	*FL=fc[0]*exp(expF);
 	*GL=gc[0]*exp(expG);
 	*FLprime=fcp[0]*exp(expF);
@@ -202,7 +202,7 @@ void CoulWave::GetFGprime_ImagQ(int ellmax,double x,double eta,double *FL,double
 		G[l+1]=(ff*G[l]-(l+1.0)*Gprime[l])/root;
 		Gprime[l+1]=-(sign*root*G[l]+ff*G[l+1])/(l+1.0);
 	}
-
+	
 	*FL=F[ellmax];
 	*GL=G[ellmax];
 	*FLprime=Fprime[ellmax];
@@ -221,12 +221,16 @@ void CoulWave::GetFGprime_ComplexQ(int ell,complex<double> cx,complex<double> ce
 	if(fabs(imag(cx)) > fabs(real(cx))){
 		// Using the recurrence relation to get the derivatives of F and G
 		// (L+1)du/dx = ((L+1)^2/x + eta)u - sqrt((L+1)^2+eta^2)uL+1
-		if(abs(ceta)>1.0E-8) CoulWave::GetFGprime_ImagQ(ell,imag(cx),-imag(ceta),FL,GL,FLprime,GLprime);
-		else Bessel::CalcJN_imag(ell,imag(cx),*FL,*GL,*FLprime,*GLprime);
+		if(abs(ceta)>1.0E-8)
+			CoulWave::GetFGprime_ImagQ(ell,imag(cx),-imag(ceta),FL,GL,FLprime,GLprime);
+		else
+			Bessel::CalcJN_imag(ell,imag(cx),*FL,*GL,*FLprime,*GLprime);
 	}
 	else{
-		if(abs(ceta)>1.0E-8) CoulWave::GetFGprime(ell,real(cx),real(ceta),FL,GL,FLprime,GLprime);
-		else Bessel::CalcJN_real(ell,real(cx),*FL,*GL,*FLprime,*GLprime);
+		if(abs(ceta)>1.0E-8)
+			CoulWave::GetFGprime(ell,real(cx),real(ceta),FL,GL,FLprime,GLprime);
+		else
+			Bessel::CalcJN_real(ell,real(cx),*FL,*GL,*FLprime,*GLprime);
 	}
 	return;
 }
@@ -238,7 +242,7 @@ complex<double>  eta){
 
 	/* The notation is like Gr. + R, page 1063.
 	The Coulomb wave function is the same as W(i*eta,l+1/2,2*i*rho) */
-		double psi1,psi2,sum2;
+	double psi1,psi2,sum2;
 	complex<double> delsum1,sum1,lterm,answer,ci(0.0,1.0);
 	double cdcon1,cdcon2,factor,cx,delp,psi3,fact1,fact2,rr,ceta;
 	int k;
@@ -296,7 +300,7 @@ complex<double>  eta){
 	//printf("factor=(%g,%g)\n",real(factor),imag(factor));
 	/*
 	printf("r=(%g,%g), eta=(%g,%g), factor=(%g,%g), sum1=(%g,%g), sum2=(%g,%g), answer=(%g,%g)\n",real(r),imag(r),
-		real(eta),imag(eta),real(factor),imag(factor),real(sum1),imag(sum1),real(sum2),imag(sum2),real(answer),imag(answer));
+	real(eta),imag(eta),real(factor),imag(factor),real(sum1),imag(sum1),real(sum2),imag(sum2),real(answer),imag(answer));
 	*/
 	return answer;
 }
@@ -305,7 +309,7 @@ complex<double>  eta){
 double CoulWave::dgamma(int mm){
 	/* This calc.s gamma functions which are in the form gamma(n)
 	where n is an int > 0. */
-		double dg;
+	double dg;
 	int j;
 	dg=1.0;
 	if(mm<1) {
