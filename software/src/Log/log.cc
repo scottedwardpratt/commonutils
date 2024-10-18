@@ -19,7 +19,10 @@ void CLog::Init(string &logfilename_in){
 void CLog::Init(char *logfilename_in){
 	INTERACTIVE=false;
 	logfilename=logfilename_in;
-	fptr=fopen(logfilename.c_str(),"w");
+	if(logfilename!="INTERACTIVE"){
+		INTERACTIVE=false;
+		fptr=fopen(logfilename.c_str(),"w");
+	}
 }
 
 void CLog::Fatal(string message){
