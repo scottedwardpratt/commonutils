@@ -580,7 +580,7 @@ double CCHArray::GetMElementFromAExpArray(int lx,int ly,int lz,int ir){
 			}
 		}
 	}
-	delete lfact;
+	delete [] lfact;
 	return answer;
 }	     
 
