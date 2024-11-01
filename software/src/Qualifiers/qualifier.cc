@@ -6,7 +6,7 @@ using namespace NMSUPratt;
 
 void CQualifiers::Read(string qfilename){
 	CQualifier *qptr;
-	char cread[120],dummy[120];
+	char cread[200],dummy[200];
 	int npars=0,iqual=-1;
 	string sread;
 	FILE *fptr=fopen(qfilename.c_str(),"r");
@@ -14,7 +14,7 @@ void CQualifiers::Read(string qfilename){
 		fscanf(fptr,"%s",cread);
 		sread=cread;
 		if(sread[0]=='#'){
-			fgets(dummy,120,fptr);
+			fgets(dummy,200,fptr);
 		}
 		else if(sread=="qualifier"){
 			npars=0;
@@ -24,7 +24,7 @@ void CQualifiers::Read(string qfilename){
 			fscanf(fptr,"%s",cread);
 			sread=string(cread);
 			qualifier[iqual]->qualname=sread;
-			fgets(dummy,120,fptr);
+			fgets(dummy,200,fptr);
 		}
 		else{
 			if(sread=="int" || sread=="double" || sread=="bool"){
@@ -43,7 +43,7 @@ void CQualifiers::Read(string qfilename){
 				sread=string(cread);
 				qualifier[iqual]->value.push_back(sread);
 			}
-			fgets(dummy,120,fptr);
+			fgets(dummy,200,fptr);
 			npars+=1;
 		}
 		if(iqual>=0)
