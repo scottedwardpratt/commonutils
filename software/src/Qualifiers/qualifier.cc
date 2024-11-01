@@ -1,5 +1,6 @@
 #include "msu_commonutils/qualifier.h"
 #include "msu_commonutils/parametermap.h"
+#include "msu_commonutils/log.h"
 
 using namespace std;
 using namespace NMSUPratt;
@@ -37,7 +38,7 @@ void CQualifiers::Read(string qfilename){
 				qualifier[iqual]->value.push_back(sread);
 			}
 			else{	
-				qualifier[iqual]->type.push_back("unknown");
+				qualifier[iqual]->type.push_back("string");
 				qualifier[iqual]->parname.push_back(sread);
 				fscanf(fptr,"%s",cread);
 				sread=string(cread);
@@ -60,10 +61,11 @@ void CQualifiers::SetPars(CparameterMap *pmap,int iqual){
 }
 
 void CQualifiers::Print(){
-	printf("------ QUALIFIERS -------\n");
+	CLog::Info("------ QUALIFIERS -------\n");
 	for(int iqual=0;iqual<nqualifiers;iqual++){
+		CLog::Info("--- "+qualifier[iqual]->qualname+" ---\n");
 		for(int ipar=0;ipar<qualifier[iqual]->npars;ipar++){
-			printf("%s %s %s\n",qualifier[iqual]->type[ipar].c_str(),qualifier[iqual]->parname[ipar].c_str(),qualifier[iqual]->value[ipar].c_str());
+			CLog::Info(qualifier[iqual]->type[ipar]+"  "+qualifier[iqual]->parname[ipar]+"  " +qualifier[iqual]->value[ipar]+"\n");
 		}
 	}
 }
