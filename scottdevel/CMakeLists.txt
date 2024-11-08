@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 project(commonutils_test)
-set(GITHOME_MSU $ENV{GITHOME_MSU})
+set(GITHOME_MSU_PRATT $ENV{GITHOME_MSU_PRATT})
 
 add_custom_target(extern_msu_commonutils COMMAND make WORKING_DIRECTORY ${GITHOME_MSU}/commonutils/software)
 
