@@ -4,15 +4,15 @@
 #include "msu_commonutils/commondefs.h"
 #include "msu_commonutils/sf.h"
 #include "msu_commonutils/qualifier.h"
+#include "msu_commonutils/sf.h"
 
 #include <cstring>
 using namespace std;
 using namespace NMSUPratt;
 
 int main(){
-	CQualifiers qualifier;
-	qualifier.Read("quals.txt");
-	qualifier.Print();
-	
-	return 0;
+  for(double x=0.1;x<2.0;x+=0.2){
+    printf("%g %g\n",x,NMSUPratt::Bessel::J0(x));
+  }
+return 0;
 }
